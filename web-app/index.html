@@ -3,685 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Velocity - Typing Tutor</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Poppins:wght@400;600;700&display=swap');
-
-        :root {
-            --bg: #0f172a;
-            --bg-light: #1a2942;
-            --bg-lighter: #233556;
-            --text: #f1f5f9;
-            --text-dim: #94a3b8;
-            --accent: #06b6d4;
-            --accent-dark: #0891b2;
-            --success: #10b981;
-            --error: #ef4444;
-        }
-
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Poppins', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 900px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--accent), #00d9ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-        }
-
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .stat-box {
-            background: var(--bg-light);
-            border: 2px solid var(--bg-lighter);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .stat-box:hover {
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--accent);
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .text-display {
-            background: var(--bg-light);
-            border: 2px solid var(--bg-lighter);
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 20px;
-            min-height: 100px;
-            max-height: 200px;
-            overflow-y: auto;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            transition: border-color 0.3s ease;
-        }
-
-        .text-display.active {
-            border-color: var(--accent);
-            background: rgba(6, 182, 212, 0.05);
-        }
-
-        .char {
-            transition: all 0.05s ease;
-        }
-
-        .char.correct {
-            color: var(--success);
-        }
-
-        .char.incorrect {
-            color: var(--error);
-            background: rgba(239, 68, 68, 0.2);
-        }
-
-        .char.current {
-            background: var(--accent);
-            color: var(--bg);
-            animation: blink 1s infinite;
-        }
-
-        .char.pending {
-            color: var(--text-dim);
-        }
-
-        @keyframes blink {
-            0%, 49%, 100% { opacity: 1; }
-            50%, 99% { opacity: 0.3; }
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 15px;
-            background: var(--bg-light);
-            border: 2px solid var(--bg-lighter);
-            border-radius: 12px;
-            color: var(--text);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1rem;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .input-field:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
-        }
-
-        .controls {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-
-        .btn {
-            padding: 12px 20px;
-            background: var(--bg-light);
-            border: 2px solid var(--bg-lighter);
-            color: var(--text);
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .btn.primary {
-            background: var(--accent);
-            color: var(--bg);
-            border-color: var(--accent);
-        }
-
-        .btn.primary:hover {
-            background: var(--accent-dark);
-            border-color: var(--accent-dark);
-            color: var(--text);
-        }
-
-        .difficulty-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .difficulty-group label {
-            font-size: 0.9rem;
-            color: var(--text-dim);
-        }
-
-        .difficulty-group select {
-            padding: 8px 12px;
-            background: var(--bg-light);
-            border: 2px solid var(--bg-lighter);
-            color: var(--text);
-            border-radius: 6px;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .difficulty-group select:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
-        .message {
-            text-align: center;
-            padding: 15px;
-            background: rgba(16, 185, 129, 0.1);
-            border: 2px solid var(--success);
-            border-radius: 8px;
-            color: var(--success);
-            margin-bottom: 15px;
-            display: none;
-            font-weight: 600;
-        }
-
-        .message.show {
-            display: block;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal.show {
-            display: flex;
-        }
-
-        .modal-content {
-            background: var(--bg-light);
-            border: 2px solid var(--bg-lighter);
-            border-radius: 16px;
-            padding: 40px;
-            max-width: 500px;
-            text-align: center;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: scale(0.9);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .modal h2 {
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            color: var(--accent);
-        }
-
-        .result-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .result-item {
-            background: var(--bg-lighter);
-            padding: 15px;
-            border-radius: 10px;
-        }
-
-        .result-item-label {
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        .result-item-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--accent);
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .tab-btn {
-            padding: 10px 20px;
-            background: var(--bg-light);
-            border: 2px solid var(--bg-lighter);
-            color: var(--text);
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .tab-btn.active {
-            background: var(--accent);
-            color: var(--bg);
-            border-color: var(--accent);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.show {
-            display: block;
-        }
-
-        @media (max-width: 600px) {
-            .title {
-                font-size: 1.8rem;
-            }
-
-            .stat-box {
-                padding: 15px;
-            }
-
-            .stat-value {
-                font-size: 1.5rem;
-            }
-
-            .controls {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-            }
-        }
-    </style>
+    <title>Velocity - Professional Typing Tutor</title>
+    <link rel="stylesheet" href="app.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1 class="title">Velocity</h1>
-            <p style="color: var(--text-dim); margin-top: 5px;">Master Your Typing Speed</p>
-        </div>
+    <div class="app">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>⚡ Velocity</h1>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" data-view="dashboard" class="nav-item active" onclick="switchView('dashboard'); return false;">
+                    <span class="icon">🏠</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" data-view="lessons" class="nav-item" onclick="switchView('lessons'); return false;">
+                    <span class="icon">📚</span>
+                    <span>Lessons</span>
+                </a>
+                <a href="#" data-view="gamification" class="nav-item" onclick="switchView('gamification'); return false;">
+                    <span class="icon">🎮</span>
+                    <span>Achievements</span>
+                </a>
+                <a href="#" data-view="certificates" class="nav-item" onclick="switchView('certificates'); return false;">
+                    <span class="icon">🎓</span>
+                    <span>Certificates</span>
+                </a>
+                <a href="#" data-view="teacher" class="nav-item" onclick="switchView('teacher'); return false;">
+                    <span class="icon">👨‍🏫</span>
+                    <span>Teacher</span>
+                </a>
+                <a href="#" data-view="settings" class="nav-item" onclick="switchView('settings'); return false;">
+                    <span class="icon">⚙️</span>
+                    <span>Settings</span>
+                </a>
+            </nav>
+        </aside>
 
-        <div class="tabs">
-            <button class="tab-btn active" data-tab="practice">Practice</button>
-            <button class="tab-btn" data-tab="stats">Statistics</button>
-        </div>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="app-header">
+                <div class="header-left">
+                    <h2 id="pageTitle">Dashboard</h2>
+                </div>
+                <div class="header-right">
+                    <input type="text" id="studentName" class="student-input" placeholder="Enter your name">
+                </div>
+            </header>
 
-        <!-- Practice Tab -->
-        <div id="practice" class="tab-content show">
-            <div class="stats-container">
-                <div class="stat-box">
-                    <div class="stat-label">WPM</div>
-                    <div class="stat-value"><span id="wpm">0</span></div>
+            <!-- Views Container -->
+            <div class="views-container">
+                <!-- Dashboard View -->
+                <div id="dashboard-view" class="view active">
+                    <div class="dashboard-grid">
+                        <div class="stat-card">
+                            <div class="stat-label">Progress</div>
+                            <div class="stat-value" id="dashProgress">0/30</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="dashProgressBar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Points</div>
+                            <div class="stat-value" id="dashPoints">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Badges</div>
+                            <div class="stat-value" id="dashBadges">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Streak</div>
+                            <div class="stat-value" id="dashStreak">0 🔥</div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="btn primary" onclick="switchView('lessons')">Start Lesson</button>
+                        <button class="btn" onclick="switchView('gamification')">View Progress</button>
+                    </div>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-label">Accuracy</div>
-                    <div class="stat-value"><span id="accuracy">100</span>%</div>
+
+                <!-- Lessons View -->
+                <div id="lessons-view" class="view">
+                    <div class="lessons-container">
+                        <div class="lessons-sidebar">
+                            <h3>📚 Lessons</h3>
+                            <div id="lessonsList"></div>
+                        </div>
+                        <div class="lessons-main">
+                            <div id="lessonContent">Select a lesson to start</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-label">Errors</div>
-                    <div class="stat-value" id="errors">0</div>
+
+                <!-- Gamification View -->
+                <div id="gamification-view" class="view">
+                    <div id="gamificationDashboard"></div>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-label">Time</div>
-                    <div class="stat-value"><span id="time">0</span>s</div>
+
+                <!-- Certificates View -->
+                <div id="certificates-view" class="view">
+                    <div id="certificatesContainer"></div>
+                </div>
+
+                <!-- Teacher View -->
+                <div id="teacher-view" class="view">
+                    <div id="teacherContent"></div>
+                </div>
+
+                <!-- Settings View -->
+                <div id="settings-view" class="view">
+                    <div class="settings-container">
+                        <h3>Settings</h3>
+                        <div class="setting-item">
+                            <button class="btn danger" onclick="if(confirm('Clear all data?')) { localStorage.clear(); location.reload(); }">Clear All Data</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <div class="text-display" id="textDisplay"></div>
-
-            <div class="message" id="completeMsg">✓ Test Completed!</div>
-
-            <input type="text" class="input-field" id="userInput" placeholder="Click here and start typing...">
-
-            <div class="controls">
-                <div class="difficulty-group">
-                    <label for="difficulty">Difficulty:</label>
-                    <select id="difficulty">
-                        <option value="easy">Easy</option>
-                        <option value="medium" selected>Medium</option>
-                        <option value="hard">Hard</option>
-                    </select>
-                </div>
-                <button class="btn primary" id="startBtn">Start Test</button>
-                <button class="btn" id="resetBtn">Reset</button>
-            </div>
-        </div>
-
-        <!-- Stats Tab -->
-        <div id="stats" class="tab-content">
-            <div class="stats-container">
-                <div class="stat-box">
-                    <div class="stat-label">Best WPM</div>
-                    <div class="stat-value" id="bestWpm">0</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-label">Avg WPM</div>
-                    <div class="stat-value" id="avgWpm">0</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-label">Best Accuracy</div>
-                    <div class="stat-value"><span id="bestAccuracy">0</span>%</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-label">Tests Done</div>
-                    <div class="stat-value" id="testCount">0</div>
-                </div>
-            </div>
-            <button class="btn" id="clearStatsBtn">Clear Statistics</button>
-        </div>
+        </main>
     </div>
 
-    <!-- Results Modal -->
-    <div class="modal" id="resultsModal">
-        <div class="modal-content">
-            <h2>Test Complete!</h2>
-            <div class="result-grid">
-                <div class="result-item">
-                    <div class="result-item-label">WPM</div>
-                    <div class="result-item-value" id="resultWpm">0</div>
-                </div>
-                <div class="result-item">
-                    <div class="result-item-label">Accuracy</div>
-                    <div class="result-item-value"><span id="resultAccuracy">0</span>%</div>
-                </div>
-                <div class="result-item">
-                    <div class="result-item-label">Errors</div>
-                    <div class="result-item-value" id="resultErrors">0</div>
-                </div>
-                <div class="result-item">
-                    <div class="result-item-label">Time</div>
-                    <div class="result-item-value"><span id="resultTime">0</span>s</div>
-                </div>
-            </div>
-            <button class="btn primary" id="nextTestBtn">Next Test</button>
-        </div>
-    </div>
-
-    <script>
-        const texts = {
-            easy: [
-                "The quick brown fox jumps over the lazy dog.",
-                "Practice makes perfect in typing.",
-                "Typing skills improve with consistent practice.",
-                "Focus on accuracy first, speed follows naturally.",
-                "Every keystroke brings you closer to mastery."
-            ],
-            medium: [
-                "In the realm of software development, clean code is paramount for maintainability.",
-                "The digital transformation has revolutionized how businesses operate globally.",
-                "Artificial intelligence continues to reshape industries and create new opportunities.",
-                "Cybersecurity remains critical in protecting sensitive information from threats.",
-                "Web technologies evolve rapidly, requiring developers to stay updated constantly."
-            ],
-            hard: [
-                "const fibonacci = (n) => n <= 1 ? n : fibonacci(n-1) + fibonacci(n-2);",
-                "function* generator() { yield 1; yield 2; yield* [3, 4]; }",
-                "const { address: { city } } = obj; // Destructuring assignment",
-                "async function fetch(url) { const response = await fetch(url); }",
-                "Promise.all([p1, p2]).then(([r1, r2]) => console.log(r1, r2));"
-            ]
-        };
-
-        let state = {
-            currentText: "",
-            userInput: "",
-            typing: false,
-            startTime: null,
-            stats: JSON.parse(localStorage.getItem("typingStats")) || []
-        };
-
-        // DOM Elements
-        const textDisplay = document.getElementById("textDisplay");
-        const userInput = document.getElementById("userInput");
-        const startBtn = document.getElementById("startBtn");
-        const resetBtn = document.getElementById("resetBtn");
-        const diffSelect = document.getElementById("difficulty");
-        const wpmEl = document.getElementById("wpm");
-        const accuracyEl = document.getElementById("accuracy");
-        const errorsEl = document.getElementById("errors");
-        const timeEl = document.getElementById("time");
-        const completeMsg = document.getElementById("completeMsg");
-        const modal = document.getElementById("resultsModal");
-        const nextTestBtn = document.getElementById("nextTestBtn");
-        const tabBtns = document.querySelectorAll(".tab-btn");
-        const tabContents = document.querySelectorAll(".tab-content");
-        const clearStatsBtn = document.getElementById("clearStatsBtn");
-
-        // Tab switching
-        tabBtns.forEach(btn => {
-            btn.addEventListener("click", () => {
-                tabBtns.forEach(b => b.classList.remove("active"));
-                tabContents.forEach(t => t.classList.remove("show"));
-                btn.classList.add("active");
-                document.getElementById(btn.dataset.tab).classList.add("show");
-                if (btn.dataset.tab === "stats") updateStatsDisplay();
-            });
-        });
-
-        // Load new text
-        function loadText() {
-            const diff = diffSelect.value;
-            state.currentText = texts[diff][Math.floor(Math.random() * texts[diff].length)];
-            renderText();
-            state.userInput = "";
-            userInput.value = "";
-            state.typing = false;
-            state.startTime = null;
-            completeMsg.classList.remove("show");
-            resetDisplay();
-            userInput.focus();
-        }
-
-        // Render text display
-        function renderText() {
-            textDisplay.innerHTML = state.currentText.split("").map((char, i) => {
-                let cls = "char pending";
-                if (i < state.userInput.length) {
-                    cls = state.userInput[i] === char ? "char correct" : "char incorrect";
-                } else if (i === state.userInput.length) {
-                    cls = "char current";
-                }
-                return `<span class="${cls}">${char}</span>`;
-            }).join("");
-
-            const current = textDisplay.querySelector(".char.current");
-            if (current) current.scrollIntoView({ block: "center", behavior: "smooth" });
-        }
-
-        // Update live stats
-        function updateStats() {
-            if (!state.startTime) return;
-
-            const time = (Date.now() - state.startTime) / 1000;
-            const minutes = time / 60;
-            const wpm = Math.round((state.userInput.split(/\s+/).length) / minutes) || 0;
-
-            let correct = 0;
-            for (let i = 0; i < state.userInput.length; i++) {
-                if (state.userInput[i] === state.currentText[i]) correct++;
-            }
-
-            const accuracy = state.userInput.length > 0 ? Math.round((correct / state.userInput.length) * 100) : 100;
-            const errors = state.userInput.length - correct;
-
-            wpmEl.textContent = wpm;
-            accuracyEl.textContent = accuracy;
-            errorsEl.textContent = errors;
-            timeEl.textContent = Math.floor(time);
-        }
-
-        function resetDisplay() {
-            wpmEl.textContent = "0";
-            accuracyEl.textContent = "100";
-            errorsEl.textContent = "0";
-            timeEl.textContent = "0";
-        }
-
-        // Input handler
-        userInput.addEventListener("input", (e) => {
-            state.userInput = e.target.value;
-
-            if (!state.typing && state.userInput.length > 0) {
-                state.typing = true;
-                state.startTime = Date.now();
-                textDisplay.classList.add("active");
-            }
-
-            renderText();
-            updateStats();
-
-            if (state.userInput === state.currentText) {
-                finishTest();
-            }
-        });
-
-        function finishTest() {
-            state.typing = false;
-            const time = (Date.now() - state.startTime) / 1000;
-            const minutes = time / 60;
-            const wpm = Math.round((state.userInput.split(/\s+/).length) / minutes) || 0;
-
-            let correct = 0;
-            for (let i = 0; i < state.userInput.length; i++) {
-                if (state.userInput[i] === state.currentText[i]) correct++;
-            }
-
-            const accuracy = Math.round((correct / state.userInput.length) * 100);
-            const errors = state.userInput.length - correct;
-
-            state.stats.push({ wpm, accuracy, errors, time: Math.floor(time) });
-            localStorage.setItem("typingStats", JSON.stringify(state.stats));
-
-            completeMsg.classList.add("show");
-
-            setTimeout(() => {
-                document.getElementById("resultWpm").textContent = wpm;
-                document.getElementById("resultAccuracy").textContent = accuracy;
-                document.getElementById("resultErrors").textContent = errors;
-                document.getElementById("resultTime").textContent = Math.floor(time);
-                modal.classList.add("show");
-            }, 500);
-        }
-
-        function updateStatsDisplay() {
-            if (state.stats.length === 0) {
-                document.getElementById("bestWpm").textContent = "0";
-                document.getElementById("avgWpm").textContent = "0";
-                document.getElementById("bestAccuracy").textContent = "0";
-                document.getElementById("testCount").textContent = "0";
-                return;
-            }
-
-            const bestWpm = Math.max(...state.stats.map(s => s.wpm));
-            const avgWpm = Math.round(state.stats.reduce((sum, s) => sum + s.wpm, 0) / state.stats.length);
-            const bestAcc = Math.max(...state.stats.map(s => s.accuracy));
-
-            document.getElementById("bestWpm").textContent = bestWpm;
-            document.getElementById("avgWpm").textContent = avgWpm;
-            document.getElementById("bestAccuracy").textContent = bestAcc;
-            document.getElementById("testCount").textContent = state.stats.length;
-        }
-
-        // Event listeners
-        startBtn.addEventListener("click", loadText);
-        resetBtn.addEventListener("click", () => {
-            state.userInput = "";
-            userInput.value = "";
-            state.typing = false;
-            state.startTime = null;
-            renderText();
-            resetDisplay();
-            textDisplay.classList.remove("active");
-            completeMsg.classList.remove("show");
-            userInput.focus();
-        });
-
-        nextTestBtn.addEventListener("click", () => {
-            modal.classList.remove("show");
-            loadText();
-        });
-
-        diffSelect.addEventListener("change", loadText);
-
-        clearStatsBtn.addEventListener("click", () => {
-            if (confirm("Clear all statistics?")) {
-                state.stats = [];
-                localStorage.clear();
-                updateStatsDisplay();
-            }
-        });
-
-        // Initialize
-        loadText();
-    </script>
+    <!-- Scripts -->
+    <script src="gamification-system.js"></script>
+    <script src="gamification-ui.js"></script>
+    <script src="professional-tutor.js"></script>
+    <script src="teacher-dashboard.js"></script>
+    <script src="certificate-system.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
