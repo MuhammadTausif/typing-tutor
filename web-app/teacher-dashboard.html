@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velocity - Teacher Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Poppins:wght@400;600;700&display=swap');
+
+        :root {
+            --bg: #0f172a;
+            --bg-light: #1a2942;
+            --bg-lighter: #233556;
+            --text: #f1f5f9;
+            --text-dim: #94a3b8;
+            --accent: #06b6d4;
+            --accent-dark: #0891b2;
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--bg-lighter);
+            padding-bottom: 20px;
+        }
+
+        .title {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), #00d9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-info {
+            text-align: right;
+            font-size: 0.9rem;
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--bg-lighter);
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            background: var(--bg-light);
+            border: none;
+            color: var(--text-dim);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn:hover {
+            color: var(--accent);
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Class Overview */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--bg-light);
+            border: 2px solid var(--bg-lighter);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Students Table */
+        .students-table {
+            background: var(--bg-light);
+            border: 2px solid var(--bg-lighter);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .table-header {
+            background: var(--bg-lighter);
+            padding: 20px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .table-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .table-content {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: var(--bg-lighter);
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid var(--bg-lighter);
+        }
+
+        tr:hover {
+            background: var(--bg-lighter);
+        }
+
+        .student-name {
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: var(--bg);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--bg-lighter);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), #00d9ff);
+            transition: width 0.3s ease;
+        }
+
+        .badge-small {
+            display: inline-block;
+            padding: 4px 8px;
+            background: var(--bg);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--accent);
+        }
+
+        /* Analytics */
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chart-container {
+            background: var(--bg-light);
+            border: 2px solid var(--bg-lighter);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .chart-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .chart-placeholder {
+            width: 100%;
+            height: 300px;
+            background: var(--bg-lighter);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            background: var(--bg-lighter);
+            border: 2px solid var(--bg-lighter);
+            color: var(--text);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn.primary {
+            background: var(--accent);
+            color: var(--bg);
+            border-color: var(--accent);
+        }
+
+        .btn.primary:hover {
+            background: var(--accent-dark);
+            border-color: var(--accent-dark);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-light);
+            border: 2px solid var(--bg-lighter);
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal h2 {
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            background: var(--bg);
+            border: 2px solid var(--bg-lighter);
+            color: var(--text);
+            border-radius: 6px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 1.5rem;
+            }
+
+            .overview-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.85rem;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="title">📊 Teacher Dashboard</h1>
+            <div class="header-info">
+                <div>Class: <strong id="className">Loading...</strong></div>
+                <div style="font-size: 0.8rem; color: var(--text-dim); margin-top: 5px;" id="lastUpdate">Last updated: -</div>
+            </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tab-nav">
+            <button class="tab-btn active" onclick="switchTab('overview')">Overview</button>
+            <button class="tab-btn" onclick="switchTab('students')">Students</button>
+            <button class="tab-btn" onclick="switchTab('analytics')">Analytics</button>
+            <button class="tab-btn" onclick="switchTab('reports')">Reports</button>
+        </div>
+
+        <!-- OVERVIEW TAB -->
+        <div id="overview" class="tab-content active">
+            <div class="overview-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Students</div>
+                    <div class="stat-value" id="totalStudents">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Active Today</div>
+                    <div class="stat-value" id="activeToday">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Avg WPM</div>
+                    <div class="stat-value" id="avgWPM">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Avg Accuracy</div>
+                    <div class="stat-value" id="avgAccuracy">0%</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h3 style="margin-bottom: 15px;">Top Performers</h3>
+                <div id="topPerformers"></div>
+            </div>
+        </div>
+
+        <!-- STUDENTS TAB -->
+        <div id="students" class="tab-content">
+            <div class="controls">
+                <input type="text" id="searchStudent" placeholder="Search student..." style="padding: 10px; background: var(--bg-lighter); border: 2px solid var(--bg-lighter); color: var(--text); border-radius: 6px; flex: 1; max-width: 300px;">
+                <button class="btn primary" onclick="openAddStudent()">+ Add Student</button>
+                <button class="btn" onclick="exportStudents()">Export CSV</button>
+            </div>
+
+            <div class="students-table">
+                <div class="table-header">
+                    <h3>Class Students</h3>
+                </div>
+                <div class="table-content">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Lessons</th>
+                                <th>Progress</th>
+                                <th>Best WPM</th>
+                                <th>Accuracy</th>
+                                <th>Points</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTableBody">
+                            <tr>
+                                <td colspan="7" style="text-align: center; color: var(--text-dim);">No students yet</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ANALYTICS TAB -->
+        <div id="analytics" class="tab-content">
+            <div class="analytics-grid">
+                <div class="chart-container">
+                    <div class="chart-title">Class Performance Trend</div>
+                    <div class="chart-placeholder">Chart: WPM & Accuracy over time</div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Lessons Completed Distribution</div>
+                    <div class="chart-placeholder">Chart: Student progress distribution</div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Accuracy Distribution</div>
+                    <div class="chart-placeholder">Chart: Accuracy levels by student</div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Speed Distribution</div>
+                    <div class="chart-placeholder">Chart: WPM distribution by student</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- REPORTS TAB -->
+        <div id="reports" class="tab-content">
+            <div class="controls">
+                <select id="reportType" style="padding: 10px; background: var(--bg-lighter); border: 2px solid var(--bg-lighter); color: var(--text); border-radius: 6px;">
+                    <option value="class">Class Report</option>
+                    <option value="student">Individual Student</option>
+                    <option value="achievement">Achievement Report</option>
+                    <option value="trend">Trend Analysis</option>
+                </select>
+                <button class="btn primary" onclick="generateReport()">Generate Report</button>
+                <button class="btn" onclick="printReport()">Print</button>
+            </div>
+
+            <div class="students-table">
+                <div class="table-header">
+                    <h3>Recent Reports</h3>
+                </div>
+                <div class="table-content">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Report Type</th>
+                                <th>Generated</th>
+                                <th>Data</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reportsTableBody">
+                            <tr>
+                                <td colspan="4" style="text-align: center; color: var(--text-dim);">No reports generated yet</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Student Modal -->
+    <div id="addStudentModal" class="modal">
+        <div class="modal-content">
+            <h2>Add Student</h2>
+            <div class="form-group">
+                <label>Student Name</label>
+                <input type="text" id="studentNameInput" placeholder="Enter student name">
+            </div>
+            <div class="form-group">
+                <label>Student ID (Optional)</label>
+                <input type="text" id="studentIdInput" placeholder="e.g., STU001">
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn primary" onclick="addStudent()" style="flex: 1;">Add Student</button>
+                <button class="btn" onclick="closeModal('addStudentModal')" style="flex: 1;">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Details Modal -->
+    <div id="studentDetailsModal" class="modal">
+        <div class="modal-content">
+            <h2 id="detailsTitle">Student Details</h2>
+            <div id="detailsContent"></div>
+            <button class="btn" onclick="closeModal('studentDetailsModal')" style="width: 100%; margin-top: 20px;">Close</button>
+        </div>
+    </div>
+
+    <script src="gamification-system.js"></script>
+    <script src="teacher-dashboard.js"></script>
+</body>
+</html>
