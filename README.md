@@ -14,31 +14,35 @@ A sleek, lightweight typing speed and accuracy trainer that works on any device 
 
 ### 🎯 Core Features
 - **Zero Installation** - Single HTML file, works in any modern browser
+- **Tab-Based Interface** - Practice & Statistics modes for easy navigation
 - **Three Difficulty Levels** - Easy, Medium, and Hard modes
 - **Real-Time Statistics** - Live WPM, accuracy, and error tracking
 - **Progress Tracking** - Automatically saves test history to local storage
-- **Beautiful Dark Theme** - Modern, distraction-free interface
+- **Beautiful Dark Theme** - Modern, distraction-free interface with cyan accents
 - **Responsive Design** - Works seamlessly on desktop, tablet, and mobile devices
-- **PWA Support** - Can be installed as an offline app
 - **Chromebook Friendly** - Perfect for Chromebooks and any browser environment
 
 ### 📊 Statistics & Tracking
-- **WPM (Words Per Minute)** - Real-time speed calculation
+- **WPM (Words Per Minute)** - Real-time speed calculation during typing
 - **Accuracy Percentage** - Character-by-character accuracy tracking
-- **Error Count** - Total mistakes during typing
+- **Error Count** - Total mistakes during typing test
 - **Time Elapsed** - Duration of each test session
 - **Best WPM** - Your personal best performance
 - **Average WPM** - Average performance across all tests
-- **Test History** - Complete record of all completed tests
+- **Best Accuracy** - Highest accuracy achieved
+- **Tests Completed** - Total number of tests finished
+- **Test History** - Complete record of all completed tests with results
 
 ### 🎨 User Experience
 - Smooth animations and transitions
 - Character-by-character highlighting (correct/incorrect/current)
-- Auto-scrolling reference text
+- Auto-scrolling reference text during typing
 - Real-time live stats updates
-- Results modal with detailed performance metrics
+- Results modal with detailed performance breakdown
 - Statistics dashboard for progress tracking
-- Clean, minimalist interface design
+- Tab-based navigation between Practice and Stats
+- Start Test, Reset, and Next Test buttons
+- Clean, intuitive interface design with visual feedback
 
 ---
 
@@ -84,11 +88,20 @@ Visit the live demo: **https://yourusername.github.io/typing-tutor/**
 
 ### Starting a Test
 
-1. **Click "Start New Test"** button to load random practice text
+1. **Click "Practice" Tab** to access the main typing interface
 2. **Select Difficulty Level** from the dropdown (Easy, Medium, Hard)
-3. **Click in the input field** to begin typing
-4. **Type the reference text** exactly as shown
-5. **Watch your stats** update in real-time
+3. **Click "Start Test"** button to load random practice text
+4. **Click in the input field** to begin typing
+5. **Type the reference text** exactly as shown
+6. **Watch your stats** update in real-time as you type
+7. **Complete the test** by typing all the text correctly
+8. **View results** in the modal popup with detailed metrics
+9. **Click "Next Test"** to load new text and continue
+
+### Tab Navigation
+
+- **Practice Tab** - Main typing practice with live stats and input field
+- **Statistics Tab** - View your complete statistics and performance history
 
 ### Understanding Your Stats
 
@@ -99,19 +112,22 @@ Visit the live demo: **https://yourusername.github.io/typing-tutor/**
 | **Errors** | Total number of mistakes | count |
 | **Time** | Duration of your test | seconds |
 
-### Navigation
+### Button Functions
 
-- **Practice Mode** - Main typing practice interface
-- **Stats Mode** - View your complete statistics and progress
-- **Difficulty Selector** - Choose Easy, Medium, or Hard
-- **Reset Button** - Clear current attempt and start over
-- **Start New Test** - Load new text and reset counters
+- **Start Test** - Load new practice text and initialize test
+- **Reset** - Clear current attempt and start over with same text
+- **Next Test** - Load new text after completing a test (from results modal)
+- **Clear Statistics** - Reset all saved statistics (available in Stats tab)
 
 ### Managing Statistics
 
-- Statistics are **automatically saved** to your browser
-- View all stats in the **Stats tab**
-- **Clear Statistics** button resets your history
+- Statistics are **automatically saved** to your browser's local storage
+- View all stats in the **Statistics tab** showing:
+  - Best WPM (highest performance)
+  - Average WPM (typical performance)
+  - Best Accuracy (highest accuracy achieved)
+  - Tests Done (total tests completed)
+- **Clear Statistics** button resets your entire history
 - Data persists even if you close the browser
 
 ---
