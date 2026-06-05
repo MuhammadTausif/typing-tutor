@@ -684,249 +684,260 @@
             stats: [],
         };
 
-        // DOM Elements
-        const referenceText = document.getElementById('referenceText');
-        const userInput = document.getElementById('userInput');
-        const startBtn = document.getElementById('startBtn');
-        const resetBtn = document.getElementById('resetBtn');
-        const difficultySelect = document.getElementById('difficulty');
-        const wpmDisplay = document.getElementById('wpm');
-        const accuracyDisplay = document.getElementById('accuracy');
-        const errorsDisplay = document.getElementById('errors');
-        const timeDisplay = document.getElementById('timeElapsed');
-        const resultsModal = document.getElementById('resultsModal');
-        const tryAgainBtn = document.getElementById('tryAgainBtn');
-        const modeBtns = document.querySelectorAll('.mode-btn');
-        const practiceMode = document.getElementById('practiceMode');
-        const statsMode = document.getElementById('statsMode');
-        const clearStatsBtn = document.getElementById('clearStatsBtn');
-        const completionMessage = document.getElementById('completionMessage');
-
-        // Load stats from localStorage
-        function loadStats() {
-            const saved = localStorage.getItem('typingTutorStats');
-            return saved ? JSON.parse(saved) : [];
+        // Wait for DOM to be ready
+        function whenReady(callback) {
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', callback);
+            } else {
+                callback();
+            }
         }
 
-        function saveStats() {
-            localStorage.setItem('typingTutorStats', JSON.stringify(state.stats));
-        }
+        whenReady(function() {
+            // DOM Elements
+            const referenceText = document.getElementById('referenceText');
+            const userInput = document.getElementById('userInput');
+            const startBtn = document.getElementById('startBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const difficultySelect = document.getElementById('difficulty');
+            const wpmDisplay = document.getElementById('wpm');
+            const accuracyDisplay = document.getElementById('accuracy');
+            const errorsDisplay = document.getElementById('errors');
+            const timeDisplay = document.getElementById('timeElapsed');
+            const resultsModal = document.getElementById('resultsModal');
+            const tryAgainBtn = document.getElementById('tryAgainBtn');
+            const modeBtns = document.querySelectorAll('.mode-btn');
+            const practiceMode = document.getElementById('practiceMode');
+            const statsMode = document.getElementById('statsMode');
+            const clearStatsBtn = document.getElementById('clearStatsBtn');
+            const completionMessage = document.getElementById('completionMessage');
 
-        function updateStatsDisplay() {
-            if (state.stats.length === 0) {
-                document.getElementById('bestWpm').textContent = '0';
-                document.getElementById('avgWpm').textContent = '0';
-                document.getElementById('bestAccuracy').textContent = '0';
-                document.getElementById('testsCompleted').textContent = '0';
-                return;
+            console.log('DOM Ready - buttons found:', {startBtn, resetBtn, tryAgainBtn});
+
+            // Load stats from localStorage
+            function loadStats() {
+                try {
+                    const saved = localStorage.getItem('typingTutorStats');
+                    return saved ? JSON.parse(saved) : [];
+                } catch (e) {
+                    return [];
+                }
             }
 
-            const bestWpm = Math.max(...state.stats.map(s => s.wpm));
-            const avgWpm = Math.round(state.stats.reduce((sum, s) => sum + s.wpm, 0) / state.stats.length);
-            const bestAccuracy = Math.max(...state.stats.map(s => s.accuracy));
-            const testsCompleted = state.stats.length;
+            function saveStats() {
+                try {
+                    localStorage.setItem('typingTutorStats', JSON.stringify(state.stats));
+                } catch (e) {
+                    console.error('Could not save stats:', e);
+                }
+            }
 
-            document.getElementById('bestWpm').textContent = bestWpm;
-            document.getElementById('avgWpm').textContent = avgWpm;
-            document.getElementById('bestAccuracy').textContent = Math.round(bestAccuracy);
-            document.getElementById('testsCompleted').textContent = testsCompleted;
-        }
+            function updateStatsDisplay() {
+                if (state.stats.length === 0) {
+                    document.getElementById('bestWpm').textContent = '0';
+                    document.getElementById('avgWpm').textContent = '0';
+                    document.getElementById('bestAccuracy').textContent = '0';
+                    document.getElementById('testsCompleted').textContent = '0';
+                    return;
+                }
 
-        // Mode switching
-        modeBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                modeBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
+                const bestWpm = Math.max(...state.stats.map(s => s.wpm));
+                const avgWpm = Math.round(state.stats.reduce((sum, s) => sum + s.wpm, 0) / state.stats.length);
+                const bestAccuracy = Math.max(...state.stats.map(s => s.accuracy));
+                const testsCompleted = state.stats.length;
 
-                if (btn.dataset.mode === 'practice') {
-                    practiceMode.style.display = 'flex';
-                    statsMode.style.display = 'none';
-                } else {
-                    practiceMode.style.display = 'none';
-                    statsMode.style.display = 'flex';
+                document.getElementById('bestWpm').textContent = bestWpm;
+                document.getElementById('avgWpm').textContent = avgWpm;
+                document.getElementById('bestAccuracy').textContent = Math.round(bestAccuracy);
+                document.getElementById('testsCompleted').textContent = testsCompleted;
+            }
+
+            // Mode switching
+            modeBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    modeBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    if (btn.dataset.mode === 'practice') {
+                        practiceMode.style.display = 'flex';
+                        statsMode.style.display = 'none';
+                    } else {
+                        practiceMode.style.display = 'none';
+                        statsMode.style.display = 'flex';
+                        updateStatsDisplay();
+                    }
+                });
+            });
+
+            function loadNewText() {
+                state.difficulty = difficultySelect.value;
+                const samples = textSamples[state.difficulty];
+                state.currentText = samples[Math.floor(Math.random() * samples.length)];
+                renderReferenceText();
+                state.userInput = '';
+                userInput.value = '';
+                state.isTyping = false;
+                state.startTime = null;
+                completionMessage.classList.remove('show');
+                resetStats();
+                userInput.focus();
+            }
+
+            function renderReferenceText() {
+                referenceText.innerHTML = '';
+                state.currentText.split('').forEach((char, index) => {
+                    const span = document.createElement('span');
+                    span.className = 'char pending';
+                    span.textContent = char;
+
+                    if (index < state.userInput.length) {
+                        if (state.userInput[index] === char) {
+                            span.className = 'char correct';
+                        } else {
+                            span.className = 'char incorrect';
+                        }
+                    } else if (index === state.userInput.length) {
+                        span.className = 'char current';
+                    }
+
+                    referenceText.appendChild(span);
+                });
+
+                // Auto-scroll to current character
+                const currentChar = referenceText.querySelector('.char.current');
+                if (currentChar) {
+                    currentChar.scrollIntoView({ block: 'center', behavior: 'smooth' });
+                }
+            }
+
+            function resetStats() {
+                wpmDisplay.textContent = '0';
+                accuracyDisplay.textContent = '100';
+                errorsDisplay.textContent = '0';
+                timeDisplay.textContent = '0';
+            }
+
+            function calculateStats() {
+                const timeElapsed = (Date.now() - state.startTime) / 1000;
+                const timeInMinutes = timeElapsed / 60;
+                const wordsTyped = state.userInput.trim().split(/\s+/).length;
+                const wpm = Math.round(wordsTyped / timeInMinutes) || 0;
+
+                let correctChars = 0;
+                for (let i = 0; i < state.userInput.length; i++) {
+                    if (state.userInput[i] === state.currentText[i]) {
+                        correctChars++;
+                    }
+                }
+
+                const totalChars = state.userInput.length;
+                const accuracy = totalChars > 0 ? Math.round((correctChars / totalChars) * 100) : 100;
+                const errors = totalChars - correctChars;
+
+                return {
+                    wpm,
+                    accuracy,
+                    errors,
+                    timeElapsed: Math.round(timeElapsed),
+                };
+            }
+
+            function updateLiveStats() {
+                const stats = calculateStats();
+                wpmDisplay.textContent = stats.wpm;
+                accuracyDisplay.textContent = stats.accuracy;
+                errorsDisplay.textContent = stats.errors;
+                timeDisplay.textContent = stats.timeElapsed;
+            }
+
+            // Event Listeners
+            userInput.addEventListener('input', (e) => {
+                state.userInput = e.target.value;
+
+                if (!state.isTyping && state.userInput.length > 0) {
+                    state.isTyping = true;
+                    state.startTime = Date.now();
+                    referenceText.classList.add('active');
+                }
+
+                renderReferenceText();
+                updateLiveStats();
+
+                if (state.userInput === state.currentText) {
+                    completeTest();
+                }
+            });
+
+            function completeTest() {
+                state.isTyping = false;
+                const stats = calculateStats();
+                state.stats.push(stats);
+                saveStats();
+                completionMessage.classList.add('show');
+
+                setTimeout(() => {
+                    showResults(stats);
+                }, 500);
+            }
+
+            function showResults(stats) {
+                document.getElementById('resultWpm').textContent = stats.wpm;
+                document.getElementById('resultAccuracy').textContent = stats.accuracy;
+                document.getElementById('resultErrors').textContent = stats.errors;
+                document.getElementById('resultTime').textContent = stats.timeElapsed;
+                resultsModal.classList.add('show');
+            }
+
+            // Button Click Handlers
+            startBtn.addEventListener('click', function(e) {
+                console.log('Start button clicked');
+                e.preventDefault();
+                loadNewText();
+            });
+
+            resetBtn.addEventListener('click', function(e) {
+                console.log('Reset button clicked');
+                e.preventDefault();
+                state.userInput = '';
+                userInput.value = '';
+                state.isTyping = false;
+                state.startTime = null;
+                renderReferenceText();
+                resetStats();
+                referenceText.classList.remove('active');
+                completionMessage.classList.remove('show');
+                userInput.focus();
+            });
+
+            tryAgainBtn.addEventListener('click', function(e) {
+                console.log('Try Again button clicked');
+                e.preventDefault();
+                resultsModal.classList.remove('show');
+                loadNewText();
+            });
+
+            clearStatsBtn.addEventListener('click', function(e) {
+                console.log('Clear Stats button clicked');
+                e.preventDefault();
+                if (confirm('Are you sure you want to clear all statistics?')) {
+                    state.stats = [];
+                    saveStats();
                     updateStatsDisplay();
                 }
             });
-        });
 
-        // Initialize
-        function init() {
+            difficultySelect.addEventListener('change', function(e) {
+                console.log('Difficulty changed to:', this.value);
+                loadNewText();
+            });
+
+            // Initialize
             state.stats = loadStats();
             updateStatsDisplay();
             loadNewText();
-        }
 
-        function loadNewText() {
-            state.difficulty = difficultySelect.value;
-            const samples = textSamples[state.difficulty];
-            state.currentText = samples[Math.floor(Math.random() * samples.length)];
-            renderReferenceText();
-            state.userInput = '';
-            userInput.value = '';
-            state.isTyping = false;
-            state.startTime = null;
-            completionMessage.classList.remove('show');
-            resetStats();
-        }
-
-        function renderReferenceText() {
-            referenceText.innerHTML = '';
-            state.currentText.split('').forEach((char, index) => {
-                const span = document.createElement('span');
-                span.className = 'char pending';
-                span.textContent = char;
-
-                if (index < state.userInput.length) {
-                    if (state.userInput[index] === char) {
-                        span.className = 'char correct';
-                    } else {
-                        span.className = 'char incorrect';
-                    }
-                } else if (index === state.userInput.length) {
-                    span.className = 'char current';
-                }
-
-                referenceText.appendChild(span);
-            });
-
-            // Auto-scroll to current character
-            const currentChar = referenceText.querySelector('.char.current');
-            if (currentChar) {
-                currentChar.scrollIntoView({ block: 'center', behavior: 'smooth' });
-            }
-        }
-
-        function resetStats() {
-            wpmDisplay.textContent = '0';
-            accuracyDisplay.textContent = '100';
-            errorsDisplay.textContent = '0';
-            timeDisplay.textContent = '0';
-        }
-
-        function calculateStats() {
-            const timeElapsed = (Date.now() - state.startTime) / 1000; // in seconds
-            const timeInMinutes = timeElapsed / 60;
-            const wordsTyped = state.userInput.trim().split(/\s+/).length;
-            const wpm = Math.round(wordsTyped / timeInMinutes) || 0;
-
-            let correctChars = 0;
-            for (let i = 0; i < state.userInput.length; i++) {
-                if (state.userInput[i] === state.currentText[i]) {
-                    correctChars++;
-                }
-            }
-
-            const totalChars = state.userInput.length;
-            const accuracy = totalChars > 0 ? Math.round((correctChars / totalChars) * 100) : 100;
-            const errors = totalChars - correctChars;
-
-            return {
-                wpm,
-                accuracy,
-                errors,
-                timeElapsed: Math.round(timeElapsed),
-            };
-        }
-
-        function updateLiveStats() {
-            const stats = calculateStats();
-            wpmDisplay.textContent = stats.wpm;
-            accuracyDisplay.textContent = stats.accuracy;
-            errorsDisplay.textContent = stats.errors;
-            timeDisplay.textContent = stats.timeElapsed;
-        }
-
-        userInput.addEventListener('input', (e) => {
-            const prevLength = state.userInput.length;
-            state.userInput = e.target.value;
-
-            if (!state.isTyping && state.userInput.length > 0) {
-                state.isTyping = true;
-                state.startTime = Date.now();
-                referenceText.classList.add('active');
-            }
-
-            renderReferenceText();
-            updateLiveStats();
-
-            // Check if completed
-            if (state.userInput === state.currentText) {
-                completeTest();
-            }
+            console.log('Typing Tutor initialized successfully');
         });
-
-        function completeTest() {
-            state.isTyping = false;
-            const stats = calculateStats();
-            
-            // Save stats
-            state.stats.push(stats);
-            saveStats();
-
-            // Show completion message
-            completionMessage.classList.add('show');
-
-            // Show results after a short delay
-            setTimeout(() => {
-                showResults(stats);
-            }, 500);
-        }
-
-        function showResults(stats) {
-            document.getElementById('resultWpm').textContent = stats.wpm;
-            document.getElementById('resultAccuracy').textContent = stats.accuracy;
-            document.getElementById('resultErrors').textContent = stats.errors;
-            document.getElementById('resultTime').textContent = stats.timeElapsed;
-
-            resultsModal.classList.add('show');
-        }
-
-        startBtn.addEventListener('click', loadNewText);
-        resetBtn.addEventListener('click', () => {
-            state.userInput = '';
-            userInput.value = '';
-            state.isTyping = false;
-            state.startTime = null;
-            renderReferenceText();
-            resetStats();
-            referenceText.classList.remove('active');
-            completionMessage.classList.remove('show');
-            userInput.focus();
-        });
-
-        tryAgainBtn.addEventListener('click', () => {
-            resultsModal.classList.remove('show');
-            loadNewText();
-            userInput.focus();
-        });
-
-        clearStatsBtn.addEventListener('click', () => {
-            if (confirm('Are you sure you want to clear all statistics?')) {
-                state.stats = [];
-                saveStats();
-                updateStatsDisplay();
-            }
-        });
-
-        difficultySelect.addEventListener('change', loadNewText);
-
-        // Service Worker for PWA support
-        if ('serviceWorker' in navigator) {
-            const sw = `
-                self.addEventListener('install', () => self.skipWaiting());
-                self.addEventListener('activate', (e) => e.waitUntil(clients.claim()));
-                self.addEventListener('fetch', (e) => {
-                    e.respondWith(fetch(e.request).catch(() => new Response('Offline')));
-                });
-            `;
-            const blob = new Blob([sw], { type: 'application/javascript' });
-            const swUrl = URL.createObjectURL(blob);
-            navigator.serviceWorker.register(swUrl).catch(() => {});
-        }
-
-        // Initialize on load
-        init();
-        userInput.focus();
     </script>
 </body>
 </html>
