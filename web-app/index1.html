@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velocity - Professional Typing Tutor</title>
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>⚡ Velocity</h1>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" data-view="dashboard" class="nav-item active" onclick="switchView('dashboard'); return false;">
+                    <span class="icon">🏠</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" data-view="lessons" class="nav-item" onclick="switchView('lessons'); return false;">
+                    <span class="icon">📚</span>
+                    <span>Lessons</span>
+                </a>
+                <a href="#" data-view="gamification" class="nav-item" onclick="switchView('gamification'); return false;">
+                    <span class="icon">🎮</span>
+                    <span>Achievements</span>
+                </a>
+                <a href="#" data-view="certificates" class="nav-item" onclick="switchView('certificates'); return false;">
+                    <span class="icon">🎓</span>
+                    <span>Certificates</span>
+                </a>
+                <a href="#" data-view="teacher" class="nav-item" onclick="switchView('teacher'); return false;">
+                    <span class="icon">👨‍🏫</span>
+                    <span>Teacher</span>
+                </a>
+                <a href="#" data-view="settings" class="nav-item" onclick="switchView('settings'); return false;">
+                    <span class="icon">⚙️</span>
+                    <span>Settings</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="app-header">
+                <div class="header-left">
+                    <h2 id="pageTitle">Dashboard</h2>
+                </div>
+                <div class="header-right">
+                    <input type="text" id="studentName" class="student-input" placeholder="Enter your name">
+                </div>
+            </header>
+
+            <!-- Views Container -->
+            <div class="views-container">
+                <!-- Dashboard View -->
+                <div id="dashboard-view" class="view active">
+                    <div class="dashboard-grid">
+                        <div class="stat-card">
+                            <div class="stat-label">Progress</div>
+                            <div class="stat-value" id="dashProgress">0/30</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="dashProgressBar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Points</div>
+                            <div class="stat-value" id="dashPoints">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Badges</div>
+                            <div class="stat-value" id="dashBadges">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Streak</div>
+                            <div class="stat-value" id="dashStreak">0 🔥</div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="btn primary" onclick="switchView('lessons')">Start Lesson</button>
+                        <button class="btn" onclick="switchView('gamification')">View Progress</button>
+                    </div>
+                </div>
+
+                <!-- Lessons View -->
+                <div id="lessons-view" class="view">
+                    <div class="lessons-container">
+                        <div class="lessons-sidebar">
+                            <h3>📚 Lessons</h3>
+                            <div id="lessonsList"></div>
+                        </div>
+                        <div class="lessons-main">
+                            <div id="lessonContent">Select a lesson to start</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gamification View -->
+                <div id="gamification-view" class="view">
+                    <div id="gamificationDashboard"></div>
+                </div>
+
+                <!-- Certificates View -->
+                <div id="certificates-view" class="view">
+                    <div id="certificatesContainer"></div>
+                </div>
+
+                <!-- Teacher View -->
+                <div id="teacher-view" class="view">
+                    <div id="teacherContent"></div>
+                </div>
+
+                <!-- Settings View -->
+                <div id="settings-view" class="view">
+                    <div class="settings-container">
+                        <h3>Settings</h3>
+                        <div class="setting-item">
+                            <button class="btn danger" onclick="if(confirm('Clear all data?')) { localStorage.clear(); location.reload(); }">Clear All Data</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="gamification-system.js"></script>
+    <script src="gamification-ui.js"></script>
+    <script src="professional-tutor.js"></script>
+    <script src="teacher-dashboard.js"></script>
+    <script src="certificate-system.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
