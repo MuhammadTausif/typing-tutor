@@ -7,6 +7,10 @@ const appState = {
         this.loadStudent();
         this.setupNavigation();
         this.updateDashboard();
+        // Initialize gamification
+        if (typeof gamificationState !== 'undefined') {
+            gamificationState.initialize(this.studentName || 'Student');
+        }
     },
     
     loadStudent() {
@@ -18,13 +22,16 @@ const appState = {
     },
     
     setupNavigation() {
-        document.getElementById('studentName').addEventListener('change', (e) => {
-            this.studentName = e.target.value;
-            localStorage.setItem('appStudentName', this.studentName);
-            if (typeof gamificationState !== 'undefined') {
-                gamificationState.initialize(this.studentName);
-            }
-        });
+        const input = document.getElementById('studentName');
+        if (input) {
+            input.addEventListener('change', (e) => {
+                this.studentName = e.target.value || 'Student';
+                localStorage.setItem('appStudentName', this.studentName);
+                if (typeof gamificationState !== 'undefined') {
+                    gamificationState.initialize(this.studentName);
+                }
+            });
+        }
     },
     
     updateDashboard() {
@@ -32,11 +39,17 @@ const appState = {
         const stats = gamificationState.getStats();
         if (!stats) return;
         
-        document.getElementById('dashProgress').textContent = `${stats.lessonsCompleted}/30`;
-        document.getElementById('dashProgressBar').style.width = `${(stats.lessonsCompleted / 30) * 100}%`;
-        document.getElementById('dashPoints').textContent = stats.totalPoints || 0;
-        document.getElementById('dashBadges').textContent = (stats.badgesByTier.bronze + stats.badgesByTier.silver + stats.badgesByTier.gold + stats.badgesByTier.platinum);
-        document.getElementById('dashStreak').textContent = `${stats.currentStreak || 0} 🔥`;
+        const progress = document.getElementById('dashProgress');
+        const bar = document.getElementById('dashProgressBar');
+        const points = document.getElementById('dashPoints');
+        const badges = document.getElementById('dashBadges');
+        const streak = document.getElementById('dashStreak');
+        
+        if (progress) progress.textContent = `${stats.lessonsCompleted}/30`;
+        if (bar) bar.style.width = `${(stats.lessonsCompleted / 30) * 100}%`;
+        if (points) points.textContent = stats.totalPoints || 0;
+        if (badges) badges.textContent = (stats.badgesByTier.bronze + stats.badgesByTier.silver + stats.badgesByTier.gold + stats.badgesByTier.platinum);
+        if (streak) streak.textContent = `${stats.currentStreak || 0} 🔥`;
     }
 };
 
@@ -50,7 +63,8 @@ function switchView(viewName) {
     if (viewEl) viewEl.classList.add('active');
     
     // Mark nav item active
-    document.querySelector(`[data-view="${viewName}"]`).classList.add('active');
+    const navItem = document.querySelector(`[data-view="${viewName}"]`);
+    if (navItem) navItem.classList.add('active');
     
     // Update page title
     const titles = {
@@ -90,12 +104,12 @@ function loadViewContent(viewName) {
 }
 
 function loadLessonsView() {
-    if (typeof state === 'undefined') return;
+    if (typeof lessons === 'undefined') return;
     const container = document.getElementById('lessonsList');
     if (!container) return;
     
-    container.innerHTML = lessons.slice(0, 10).map(lesson => `
-        <div class="lesson-item" onclick="selectLesson(${lesson.id})">
+    container.innerHTML = '<h3>📚 Lessons</h3>' + lessons.slice(0, 15).map(lesson => `
+        <div class="lesson-item" onclick="selectLesson(${lesson.id}); return false;" style="cursor: pointer; padding: 10px; background: var(--bg-lighter); margin: 8px 0; border-radius: 6px; border-left: 3px solid var(--accent);">
             <div style="font-weight: 600; color: var(--accent);">Lesson ${lesson.id}</div>
             <div style="font-size: 0.85rem; color: var(--text-dim);">${lesson.title}</div>
         </div>
@@ -104,6 +118,7 @@ function loadLessonsView() {
 
 function loadGamificationView() {
     if (typeof gamificationState === 'undefined') return;
+    const container = document.getElementById('gamificationDashboard');
     const dashboard = new GamificationDashboard('gamificationDashboard');
     const stats = gamificationState.getStats();
     if (stats) dashboard.render(stats);
@@ -131,30 +146,10 @@ function loadTeacherView() {
     document.getElementById('teacherContent').innerHTML = html;
 }
 
-function switchTeacherTab(tab) {
-    // Implementation for teacher tabs
-}
-
 function selectLesson(lessonId) {
     if (typeof loadLesson === 'function') {
         loadLesson(lessonId);
-        switchView('lessons');
-    }
-}
-
-function changeTheme(theme) {
-    if (theme === 'light') {
-        document.documentElement.style.setProperty('--bg', '#ffffff');
-        document.documentElement.style.setProperty('--bg-light', '#f5f5f5');
-        document.documentElement.style.setProperty('--bg-lighter', '#eeeeee');
-        document.documentElement.style.setProperty('--text', '#333333');
-        document.documentElement.style.setProperty('--text-dim', '#666666');
-    } else {
-        document.documentElement.style.setProperty('--bg', '#0f172a');
-        document.documentElement.style.setProperty('--bg-light', '#1a2942');
-        document.documentElement.style.setProperty('--bg-lighter', '#233556');
-        document.documentElement.style.setProperty('--text', '#f1f5f9');
-        document.documentElement.style.setProperty('--text-dim', '#94a3b8');
+        // Don't switch view, stay in lessons
     }
 }
 
