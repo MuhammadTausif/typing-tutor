@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>Velocity • TypeSnake — Learn to Type</title>
+<title>Velocity â€¢ TypeSnake â€” Learn to Type</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
@@ -193,10 +193,16 @@
 </style>
 </head>
 <body>
+  <!-- Velocity back-nav -->
+  <style>
+    #vel-back{position:fixed;top:12px;left:12px;z-index:9999;background:rgba(124,58,237,.85);color:#fff;font-family:Inter,sans-serif;font-size:13px;font-weight:600;padding:6px 14px;border-radius:8px;text-decoration:none;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.15);transition:opacity .15s}
+    #vel-back:hover{opacity:.85}
+  </style>
+  <a id="vel-back" href="/">← Velocity</a>
 <div id="app">
   <header>
     <div class="brand">
-      <div class="logo">🐍</div>
+      <div class="logo">ðŸ</div>
       <div class="txt">
         <span class="kicker">VELOCITY</span>
         <h1>Type<span>Snake</span></h1>
@@ -218,8 +224,8 @@
     <!-- START / MENU -->
     <div class="overlay" id="menu">
       <div class="card">
-        <h2>Learn to type, one bite at a time 🐍</h2>
-        <p class="sub">Type the letter you see — your snake slithers over and gobbles it up!</p>
+        <h2>Learn to type, one bite at a time ðŸ</h2>
+        <p class="sub">Type the letter you see â€” your snake slithers over and gobbles it up!</p>
 
         <div class="field">
           <span class="flab">Keys to practice</span>
@@ -244,14 +250,14 @@
         <div class="field">
           <span class="flab">Mode</span>
           <div class="pills" id="modePills">
-            <button class="pill on" data-mode="sprint">⏱️ Sprint (60s)</button>
-            <button class="pill" data-mode="zen">🌿 Zen (no timer)</button>
+            <button class="pill on" data-mode="sprint">â±ï¸ Sprint (60s)</button>
+            <button class="pill" data-mode="zen">ðŸŒ¿ Zen (no timer)</button>
           </div>
         </div>
 
-        <p class="howto">Colors on the keyboard show <b>which finger</b> to use. Keep your fingers on the <b>home row</b> (F and J have little bumps!). Build a <b>combo 🔥</b> by getting letters right in a row.</p>
+        <p class="howto">Colors on the keyboard show <b>which finger</b> to use. Keep your fingers on the <b>home row</b> (F and J have little bumps!). Build a <b>combo ðŸ”¥</b> by getting letters right in a row.</p>
 
-        <button class="btn" id="playBtn">▶  Start Typing</button>
+        <button class="btn" id="playBtn">â–¶  Start Typing</button>
         <p class="best" id="bestLine" hidden>Session best: <b id="bestVal">0</b></p>
       </div>
     </div>
@@ -259,12 +265,12 @@
     <!-- PAUSE -->
     <div class="overlay" id="pause" hidden>
       <div class="card">
-        <h2>Paused ⏸️</h2>
+        <h2>Paused â¸ï¸</h2>
         <p class="sub">Take a breath. Your snake will wait.</p>
-        <button class="btn" id="resumeBtn">▶  Resume</button>
+        <button class="btn" id="resumeBtn">â–¶  Resume</button>
         <div class="btn-row">
-          <button class="btn alt" id="pRestart">↻ Restart</button>
-          <button class="btn alt" id="pMenu">⌂ Menu</button>
+          <button class="btn alt" id="pRestart">â†» Restart</button>
+          <button class="btn alt" id="pMenu">âŒ‚ Menu</button>
         </div>
       </div>
     </div>
@@ -272,8 +278,8 @@
     <!-- GAME OVER / SUMMARY -->
     <div class="overlay" id="over" hidden>
       <div class="card">
-        <div id="newBest" class="newbest" hidden>🏆 New session best!</div>
-        <h2 id="overTitle">Time's up! 🎉</h2>
+        <div id="newBest" class="newbest" hidden>ðŸ† New session best!</div>
+        <h2 id="overTitle">Time's up! ðŸŽ‰</h2>
         <p class="msg" id="overMsg"></p>
         <div class="sumgrid">
           <div class="s hl"><div class="n" id="sScore">0</div><div class="k">Score</div></div>
@@ -283,9 +289,9 @@
           <div class="s"><div class="n" id="sCombo">0</div><div class="k">Best combo</div></div>
           <div class="s"><div class="n" id="sLen">3</div><div class="k">Snake length</div></div>
         </div>
-        <button class="btn" id="againBtn">▶  Play Again</button>
+        <button class="btn" id="againBtn">â–¶  Play Again</button>
         <div class="btn-row">
-          <button class="btn alt" id="oMenu">⌂ Change Settings</button>
+          <button class="btn alt" id="oMenu">âŒ‚ Change Settings</button>
         </div>
       </div>
     </div>
@@ -294,14 +300,14 @@
   <div class="keyboard" id="keyboard"></div>
 
   <div class="controls">
-    <button class="ctl" id="cPause"><span class="ic">⏸️</span><span>Pause</span></button>
-    <button class="ctl" id="cEnd" hidden><span class="ic">🏁</span><span>End</span></button>
-    <button class="ctl" id="cSound"><span class="ic" id="sndIc">🔊</span><span id="sndTxt">Sound on</span></button>
-    <button class="ctl" id="cRestart"><span class="ic">↻</span><span>Restart</span></button>
-    <button class="ctl" id="cMenu"><span class="ic">⌂</span><span>Menu</span></button>
+    <button class="ctl" id="cPause"><span class="ic">â¸ï¸</span><span>Pause</span></button>
+    <button class="ctl" id="cEnd" hidden><span class="ic">ðŸ</span><span>End</span></button>
+    <button class="ctl" id="cSound"><span class="ic" id="sndIc">ðŸ”Š</span><span id="sndTxt">Sound on</span></button>
+    <button class="ctl" id="cRestart"><span class="ic">â†»</span><span>Restart</span></button>
+    <button class="ctl" id="cMenu"><span class="ic">âŒ‚</span><span>Menu</span></button>
   </div>
 
-  <p class="hint">Type a letter to eat it &nbsp;·&nbsp; <kbd>Esc</kbd> to pause &nbsp;·&nbsp; <kbd>Enter</kbd> to start / replay</p>
+  <p class="hint">Type a letter to eat it &nbsp;Â·&nbsp; <kbd>Esc</kbd> to pause &nbsp;Â·&nbsp; <kbd>Enter</kbd> to start / replay</p>
 </div>
 
 <script>
@@ -468,8 +474,8 @@
     updateHUD(); refreshKeyboard();
   }
   function comboToast(c){
-    const msgs={5:"Nice! 5 in a row 🔥",10:"On fire! x10 🔥🔥",15:"Blazing! x15 ⚡",20:"Unstoppable! x20 🌈",25:"Wow! x25 ✨",30:"Legendary! x30 👑"};
-    showToast(msgs[c]||("Combo x"+c+" 🔥"));
+    const msgs={5:"Nice! 5 in a row ðŸ”¥",10:"On fire! x10 ðŸ”¥ðŸ”¥",15:"Blazing! x15 âš¡",20:"Unstoppable! x20 ðŸŒˆ",25:"Wow! x25 âœ¨",30:"Legendary! x30 ðŸ‘‘"};
+    showToast(msgs[c]||("Combo x"+c+" ðŸ”¥"));
   }
   function showToast(txt){ toast.textContent=txt; toast.classList.add("show"); clearTimeout(showToast._t); showToast._t=setTimeout(()=>toast.classList.remove("show"),1300); }
 
@@ -634,13 +640,13 @@
   function accuracy(){ return totalKeys===0 ? 100 : Math.round(correctKeys/totalKeys*100); }
   function updateHUD(){
     elScore.textContent=score;
-    const flame = combo>=20?" 🌈":combo>=10?" 🔥🔥":combo>=5?" 🔥":"";
+    const flame = combo>=20?" ðŸŒˆ":combo>=10?" ðŸ”¥ðŸ”¥":combo>=5?" ðŸ”¥":"";
     elCombo.textContent = combo>0 ? "x"+combo+flame : "0";
     comboChip.classList.toggle("hotchip", combo>=5);
     elWpm.textContent=wpm();
     elAcc.textContent=accuracy()+"%";
     if(cfg.mode==="sprint"){ const rem=durationMs-playMs; elTime.textContent=fmtTime(rem); timeChip.classList.toggle("lowtime", rem<=10000); }
-    else elTime.textContent="∞";
+    else elTime.textContent="âˆž";
   }
 
   // ---------------- State transitions ----------------
@@ -650,7 +656,7 @@
     pause.hidden = s!=="paused";
     over.hidden = s!=="over";
     $("cPause").querySelector("span:last-child").textContent = (s==="paused")?"Resume":"Pause";
-    $("cPause").querySelector(".ic").textContent = (s==="paused")?"▶️":"⏸️";
+    $("cPause").querySelector(".ic").textContent = (s==="paused")?"â–¶ï¸":"â¸ï¸";
     $("cEnd").hidden = !(cfg.mode==="zen" && (s==="playing"||s==="paused"));
   }
 
@@ -671,16 +677,16 @@
     setState("over"); sfxOver();
     const isBest = score>bestScore; if(isBest) bestScore=score;
     $("newBest").hidden = !isBest;
-    $("overTitle").textContent = cfg.mode==="sprint" ? "Time's up! 🎉" : "Session complete! 🎉";
+    $("overTitle").textContent = cfg.mode==="sprint" ? "Time's up! ðŸŽ‰" : "Session complete! ðŸŽ‰";
     $("sScore").textContent=score; $("sWpm").textContent=wpm();
     $("sAcc").textContent=accuracy()+"%"; $("sEat").textContent=eaten;
     $("sCombo").textContent="x"+maxCombo; $("sLen").textContent=snake.length;
     const a=accuracy(), w=wpm();
     let m;
-    if(a>=98) m="Pinpoint precision — superb accuracy! 🏆";
-    else if(a>=90) m="Great accuracy! Now push that speed up. ✨";
-    else if(a>=75) m="Good effort! Slow down a touch for accuracy. 🌱";
-    else m="Keep practising — look at the colored keys to find your fingers. 💪";
+    if(a>=98) m="Pinpoint precision â€” superb accuracy! ðŸ†";
+    else if(a>=90) m="Great accuracy! Now push that speed up. âœ¨";
+    else if(a>=75) m="Good effort! Slow down a touch for accuracy. ðŸŒ±";
+    else m="Keep practising â€” look at the colored keys to find your fingers. ðŸ’ª";
     if(w>=40) m += "  Lightning fingers!";
     else if(w>=25) m += "  Solid speed.";
     $("overMsg").textContent=m;
@@ -721,7 +727,7 @@
   $("cEnd").addEventListener("click", ()=>{ if(state==="playing"||state==="paused") endGame(); });
   $("cSound").addEventListener("click", ()=>{
     sound=!sound; ensureAudio();
-    $("sndIc").textContent=sound?"🔊":"🔇"; $("sndTxt").textContent=sound?"Sound on":"Muted";
+    $("sndIc").textContent=sound?"ðŸ”Š":"ðŸ”‡"; $("sndTxt").textContent=sound?"Sound on":"Muted";
     if(sound) sfxType();
   });
 
@@ -757,3 +763,4 @@
 </script>
 </body>
 </html>
+

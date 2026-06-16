@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>Velocity • Spell Caster — Type to Cast!</title>
+<title>Velocity â€¢ Spell Caster â€” Type to Cast!</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Mulish:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -148,14 +148,20 @@
 </style>
 </head>
 <body>
+  <!-- Velocity back-nav -->
+  <style>
+    #vel-back{position:fixed;top:12px;left:12px;z-index:9999;background:rgba(124,58,237,.85);color:#fff;font-family:Inter,sans-serif;font-size:13px;font-weight:600;padding:6px 14px;border-radius:8px;text-decoration:none;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.15);transition:opacity .15s}
+    #vel-back:hover{opacity:.85}
+  </style>
+  <a id="vel-back" href="/">← Velocity</a>
 <div id="app">
   <header>
     <div class="brand">
-      <div class="logo">🧙</div>
+      <div class="logo">ðŸ§™</div>
       <div class="txt"><span class="kicker">VELOCITY</span><h1>Spell<span>Caster</span></h1></div>
     </div>
     <div class="hud">
-      <div class="chip" id="hearts"><span class="lab">Health</span><span class="val" id="vHearts">♥♥♥</span></div>
+      <div class="chip" id="hearts"><span class="lab">Health</span><span class="val" id="vHearts">â™¥â™¥â™¥</span></div>
       <div class="chip"><span class="lab">Level</span><span class="val" id="vLevel">1</span></div>
       <div class="chip"><span class="lab">Score</span><span class="val" id="vScore">0</span></div>
       <div class="chip" id="combo"><span class="lab">Combo</span><span class="val" id="vCombo">0</span></div>
@@ -171,12 +177,12 @@
     <!-- MENU -->
     <div class="overlay" id="menu">
       <div class="card">
-        <h2>Speak the word, weave the spell ✨</h2>
-        <p class="sub">A monster appears — type its spell to blast it! Defeat monsters to level up and learn new magic.</p>
+        <h2>Speak the word, weave the spell âœ¨</h2>
+        <p class="sub">A monster appears â€” type its spell to blast it! Defeat monsters to level up and learn new magic.</p>
 
         <div class="field"><span class="flab">Spell type</span>
           <div class="pills" id="setPills">
-            <button class="pill on" data-set="picture">🖼️ Picture Spells<span class="tagx">spell from memory</span></button>
+            <button class="pill on" data-set="picture">ðŸ–¼ï¸ Picture Spells<span class="tagx">spell from memory</span></button>
             <button class="pill" data-set="home">Home Row</button>
             <button class="pill" data-set="easy">Easy Words</button>
             <button class="pill" data-set="common">Big Words</button>
@@ -193,9 +199,9 @@
           </div>
         </div>
 
-        <p class="howto">In <b>Picture Spells</b>, an emoji appears and you spell its word from memory (great for spelling!). Stuck? Tap <b>🔮 Hint</b> for a letter. Cast fast to interrupt the monster before it strikes, and build a <b>combo ✨</b> for critical spells!</p>
+        <p class="howto">In <b>Picture Spells</b>, an emoji appears and you spell its word from memory (great for spelling!). Stuck? Tap <b>ðŸ”® Hint</b> for a letter. Cast fast to interrupt the monster before it strikes, and build a <b>combo âœ¨</b> for critical spells!</p>
 
-        <button class="btn" id="playBtn">▶  Begin the Quest</button>
+        <button class="btn" id="playBtn">â–¶  Begin the Quest</button>
         <p class="best" id="bestLine" hidden>Session best: <b id="bestVal">0</b></p>
       </div>
     </div>
@@ -203,18 +209,18 @@
     <!-- PAUSE -->
     <div class="overlay" id="pause" hidden>
       <div class="card">
-        <h2>Paused ⏸️</h2>
-        <p class="sub">The magic holds still…</p>
-        <button class="btn" id="resumeBtn">▶  Resume</button>
-        <div class="btn-row"><button class="btn alt" id="pRestart">↻ Restart</button><button class="btn alt" id="pMenu">⌂ Menu</button></div>
+        <h2>Paused â¸ï¸</h2>
+        <p class="sub">The magic holds stillâ€¦</p>
+        <button class="btn" id="resumeBtn">â–¶  Resume</button>
+        <div class="btn-row"><button class="btn alt" id="pRestart">â†» Restart</button><button class="btn alt" id="pMenu">âŒ‚ Menu</button></div>
       </div>
     </div>
 
     <!-- OVER -->
     <div class="overlay" id="over" hidden>
       <div class="card">
-        <div id="newBest" class="newbest" hidden>🏆 New session best!</div>
-        <h2 id="overTitle">The spell fades… 💫</h2>
+        <div id="newBest" class="newbest" hidden>ðŸ† New session best!</div>
+        <h2 id="overTitle">The spell fadesâ€¦ ðŸ’«</h2>
         <p class="msg" id="overMsg"></p>
         <div class="sumgrid">
           <div class="s hl"><div class="n" id="sScore">0</div><div class="k">Score</div></div>
@@ -224,8 +230,8 @@
           <div class="s"><div class="n" id="sWpm">0</div><div class="k">WPM</div></div>
           <div class="s"><div class="n" id="sAcc">100%</div><div class="k">Accuracy</div></div>
         </div>
-        <button class="btn" id="againBtn">▶  Quest Again</button>
-        <div class="btn-row"><button class="btn alt" id="oMenu">⌂ Change Settings</button></div>
+        <button class="btn" id="againBtn">â–¶  Quest Again</button>
+        <div class="btn-row"><button class="btn alt" id="oMenu">âŒ‚ Change Settings</button></div>
       </div>
     </div>
   </div>
@@ -241,16 +247,16 @@
   <div class="keyboard" id="keyboard"></div>
 
   <div class="controls">
-    <button class="ctl" id="cPause"><span class="ic">⏸️</span><span>Pause</span></button>
-    <button class="ctl" id="cHint"><span class="ic">🔮</span><span>Hint</span></button>
-    <button class="ctl" id="cSound"><span class="ic" id="sndIc">🔊</span><span id="sndTxt">SFX on</span></button>
-    <button class="ctl" id="cMusic"><span class="ic" id="musIc">🎵</span><span id="musTxt">Music on</span></button>
-    <button class="ctl" id="cKb"><span class="ic">⌨️</span><span>Guide</span></button>
-    <button class="ctl" id="cRestart"><span class="ic">↻</span><span>Restart</span></button>
-    <button class="ctl" id="cMenu"><span class="ic">⌂</span><span>Menu</span></button>
+    <button class="ctl" id="cPause"><span class="ic">â¸ï¸</span><span>Pause</span></button>
+    <button class="ctl" id="cHint"><span class="ic">ðŸ”®</span><span>Hint</span></button>
+    <button class="ctl" id="cSound"><span class="ic" id="sndIc">ðŸ”Š</span><span id="sndTxt">SFX on</span></button>
+    <button class="ctl" id="cMusic"><span class="ic" id="musIc">ðŸŽµ</span><span id="musTxt">Music on</span></button>
+    <button class="ctl" id="cKb"><span class="ic">âŒ¨ï¸</span><span>Guide</span></button>
+    <button class="ctl" id="cRestart"><span class="ic">â†»</span><span>Restart</span></button>
+    <button class="ctl" id="cMenu"><span class="ic">âŒ‚</span><span>Menu</span></button>
   </div>
 
-  <p class="hint">Type the spell to cast it &nbsp;·&nbsp; <kbd>Tab</kbd> hint &nbsp;·&nbsp; <kbd>Esc</kbd> pause &nbsp;·&nbsp; <kbd>Enter</kbd> begin / replay</p>
+  <p class="hint">Type the spell to cast it &nbsp;Â·&nbsp; <kbd>Tab</kbd> hint &nbsp;Â·&nbsp; <kbd>Esc</kbd> pause &nbsp;Â·&nbsp; <kbd>Enter</kbd> begin / replay</p>
 </div>
 
 <script>
@@ -265,15 +271,15 @@
     common: ["apple","happy","water","music","green","light","world","dream","smile","cloud","ocean","dance","magic","candy","tiger","panda","robot","planet","rocket","dragon","wizard","garden","flower","rainbow","monkey","turtle","banana","orange","purple","yellow","summer","winter","castle","knight","forest","friend","kitten","cookie","sunset","potion","sparkle","crystal","mystic","goblin","phoenix"]
   };
   const PICS = [
-    ["🐱","cat"],["🐶","dog"],["🐭","mouse"],["🐰","rabbit"],["🦊","fox"],["🐻","bear"],["🐯","tiger"],["🦁","lion"],["🐸","frog"],["🐢","turtle"],
-    ["🐝","bee"],["🦋","butterfly"],["🐍","snake"],["🐘","elephant"],["🐵","monkey"],["🐮","cow"],["🐷","pig"],["🐔","chicken"],["🦆","duck"],["🦉","owl"],
-    ["🐧","penguin"],["🐴","horse"],["🐑","sheep"],["🦒","giraffe"],["🐬","dolphin"],["🐳","whale"],["🐙","octopus"],["🐜","ant"],["🐦","bird"],["🐺","wolf"],
-    ["🍎","apple"],["🍌","banana"],["🍇","grapes"],["🍓","strawberry"],["🍊","orange"],["🍉","watermelon"],["🍋","lemon"],["🍒","cherry"],["🥕","carrot"],["🌽","corn"],
-    ["🍅","tomato"],["🍞","bread"],["🧀","cheese"],["🥚","egg"],["🍪","cookie"],["🍰","cake"],["🍕","pizza"],["🍩","donut"],["🍯","honey"],["🥛","milk"],
-    ["☀️","sun"],["🌙","moon"],["⭐","star"],["☁️","cloud"],["🌈","rainbow"],["❄️","snow"],["🔥","fire"],["🌊","wave"],["🌸","flower"],["🌳","tree"],
-    ["🍀","clover"],["🍂","leaf"],["🌋","volcano"],["🚗","car"],["🚌","bus"],["🚲","bike"],["🚂","train"],["✈️","plane"],["🚀","rocket"],["⛵","boat"],
-    ["🏠","house"],["🔑","key"],["📚","book"],["✏️","pencil"],["🎈","balloon"],["🎁","gift"],["🔔","bell"],["⚽","ball"],["🥁","drum"],["👑","crown"],
-    ["💎","diamond"],["🪄","wand"],["👻","ghost"],["🐲","dragon"],["❤️","heart"]
+    ["ðŸ±","cat"],["ðŸ¶","dog"],["ðŸ­","mouse"],["ðŸ°","rabbit"],["ðŸ¦Š","fox"],["ðŸ»","bear"],["ðŸ¯","tiger"],["ðŸ¦","lion"],["ðŸ¸","frog"],["ðŸ¢","turtle"],
+    ["ðŸ","bee"],["ðŸ¦‹","butterfly"],["ðŸ","snake"],["ðŸ˜","elephant"],["ðŸµ","monkey"],["ðŸ®","cow"],["ðŸ·","pig"],["ðŸ”","chicken"],["ðŸ¦†","duck"],["ðŸ¦‰","owl"],
+    ["ðŸ§","penguin"],["ðŸ´","horse"],["ðŸ‘","sheep"],["ðŸ¦’","giraffe"],["ðŸ¬","dolphin"],["ðŸ³","whale"],["ðŸ™","octopus"],["ðŸœ","ant"],["ðŸ¦","bird"],["ðŸº","wolf"],
+    ["ðŸŽ","apple"],["ðŸŒ","banana"],["ðŸ‡","grapes"],["ðŸ“","strawberry"],["ðŸŠ","orange"],["ðŸ‰","watermelon"],["ðŸ‹","lemon"],["ðŸ’","cherry"],["ðŸ¥•","carrot"],["ðŸŒ½","corn"],
+    ["ðŸ…","tomato"],["ðŸž","bread"],["ðŸ§€","cheese"],["ðŸ¥š","egg"],["ðŸª","cookie"],["ðŸ°","cake"],["ðŸ•","pizza"],["ðŸ©","donut"],["ðŸ¯","honey"],["ðŸ¥›","milk"],
+    ["â˜€ï¸","sun"],["ðŸŒ™","moon"],["â­","star"],["â˜ï¸","cloud"],["ðŸŒˆ","rainbow"],["â„ï¸","snow"],["ðŸ”¥","fire"],["ðŸŒŠ","wave"],["ðŸŒ¸","flower"],["ðŸŒ³","tree"],
+    ["ðŸ€","clover"],["ðŸ‚","leaf"],["ðŸŒ‹","volcano"],["ðŸš—","car"],["ðŸšŒ","bus"],["ðŸš²","bike"],["ðŸš‚","train"],["âœˆï¸","plane"],["ðŸš€","rocket"],["â›µ","boat"],
+    ["ðŸ ","house"],["ðŸ”‘","key"],["ðŸ“š","book"],["âœï¸","pencil"],["ðŸŽˆ","balloon"],["ðŸŽ","gift"],["ðŸ””","bell"],["âš½","ball"],["ðŸ¥","drum"],["ðŸ‘‘","crown"],
+    ["ðŸ’Ž","diamond"],["ðŸª„","wand"],["ðŸ‘»","ghost"],["ðŸ²","dragon"],["â¤ï¸","heart"]
   ];
   const DIFF = {
     apprentice: { atk:13, hits:2, hearts:5, atkMin:7 },
@@ -403,7 +409,7 @@
     const col = boss? "#ff5d6c" : ["#9be15d","#a78bfa","#5eead4","#ff9f6e","#ffd166"][(Math.random()*5)|0];
     return { kind, boss, maxHits, hits:0, charge:0, atkTime, r, color:col, x:monSlotX, y:monSlotY,
       hurt:0, wind:0, lunge:0, blink:Math.random()*4, bob:Math.random()*6, intro:0.5, dead:false, name:boss?"BOSS":"" }; }
-  function nextMonster(){ monster=makeMonster(); if(monster.boss) showToast("⚠ BOSS APPEARS!"); }
+  function nextMonster(){ monster=makeMonster(); if(monster.boss) showToast("âš  BOSS APPEARS!"); }
 
   // ============== Input / casting ==============
   function onKey(ch){ if(!/^[a-z0-9]$/.test(ch)) return; if(!spell) return; totalKeys++;
@@ -422,11 +428,11 @@
     // projectile flair from staff orb to monster
     const ox=wizX+W*0.05, oy=wizY-H*0.12;
     projectiles.push({ x:ox, y:oy, tx:(monster?monster.x:monSlotX), ty:(monster?monster.y:monSlotY), color:el.color, crit, life:1 });
-    if(crit){ sfxCrit(); showToast("✦ CRITICAL "+el.name.toUpperCase()+"!"); flashG=0.5; } else sfxCast();
+    if(crit){ sfxCrit(); showToast("âœ¦ CRITICAL "+el.name.toUpperCase()+"!"); flashG=0.5; } else sfxCast();
     // apply damage immediately (snappy); projectile is flair
     if(monster){ monster.hits += crit?2:1; monster.hurt=0.3; monster.charge=Math.max(0,monster.charge-0.45);
       floats.push({x:monster.x,y:monster.y-monster.r,text:crit?"CRIT!":"-"+(crit?2:1),color:crit?cv("--gold"):"#fff",life:1,vy:-42});
-      if([5,10,15,20,25,30,40].includes(combo)) showToast("COMBO x"+combo+" ✨");
+      if([5,10,15,20,25,30,40].includes(combo)) showToast("COMBO x"+combo+" âœ¨");
       if(monster.hits>=monster.maxHits) defeatMonster(); }
     newSpell();
   }
@@ -437,7 +443,7 @@
     nextMonster(); updateHUD(); }
   function levelUp(){ level++; const el=curElement(); hearts=Math.min(maxHearts,hearts+1);
     if(level%3===0){ maxHearts++; hearts=maxHearts; } sfxLevel(); rays(wizX,wizY-H*0.1, cv("--gold"));
-    const th=curTheme(); showToast("⬆ LEVEL "+level+" • Learned "+el.name+"!"); }
+    const th=curTheme(); showToast("â¬† LEVEL "+level+" â€¢ Learned "+el.name+"!"); }
   function breach(){ hearts=Math.max(0,hearts-1); combo=0; shake=20; vignette=1; sfxAttack();
     if(monster){ monster.lunge=0.4; explode(wizX+W*0.05,wizY-H*0.1, cv("--danger"),14); }
     updateHUD(); if(hearts<=0) endGame(); }
@@ -513,7 +519,7 @@
     ctx.fillStyle="rgba(255,255,255,.1)"; rr(x,y,bw,bh,4); ctx.fill();
     ctx.fillStyle=th.accent; ctx.shadowColor=th.accent; ctx.shadowBlur=8; rr(x,y,bw*(xpInLvl/LVL_EVERY),bh,4); ctx.fill(); ctx.shadowBlur=0;
     ctx.fillStyle="#e8e0ff"; ctx.font="800 "+(H*0.026)+"px 'Mulish',sans-serif"; ctx.textAlign="left"; ctx.textBaseline="bottom";
-    ctx.fillText(curTheme().name+" • Lv "+level, x, y-5); ctx.restore(); }
+    ctx.fillText(curTheme().name+" â€¢ Lv "+level, x, y-5); ctx.restore(); }
 
   function drawHearts(){ const n=maxHearts; const s=H*0.03, gap=s*0.5, total=n*s+(n-1)*gap; let x=wizX-total/2; const y=wizY-H*0.28;
     for(let i=0;i<n;i++){ const full=i<hearts; ctx.save(); ctx.translate(x+s/2,y); ctx.fillStyle= full? cv("--danger") : "rgba(255,255,255,.16)"; if(full){ ctx.shadowColor=cv("--danger"); ctx.shadowBlur=8; }
@@ -536,7 +542,7 @@
     ctx.fillStyle="#eef2ff"; ctx.beginPath(); ctx.moveTo(-s*0.16,-s*0.1); ctx.lineTo(s*0.16,-s*0.1); ctx.lineTo(0,s*0.22); ctx.closePath(); ctx.fill();
     // hat
     ctx.fillStyle="#5a3fc0"; ctx.beginPath(); ctx.moveTo(-s*0.26,-s*0.3); ctx.lineTo(s*0.26,-s*0.3); ctx.lineTo(s*0.05,-s*0.78); ctx.closePath(); ctx.fill();
-    ctx.fillStyle=el.color; ctx.font="800 "+(s*0.18)+"px 'Mulish',sans-serif"; ctx.textAlign="center"; ctx.textBaseline="middle"; ctx.fillText("✦", s*0.02,-s*0.5);
+    ctx.fillStyle=el.color; ctx.font="800 "+(s*0.18)+"px 'Mulish',sans-serif"; ctx.textAlign="center"; ctx.textBaseline="middle"; ctx.fillText("âœ¦", s*0.02,-s*0.5);
     ctx.fillStyle="#4a32a0"; ctx.fillRect(-s*0.28,-s*0.32,s*0.56,s*0.07);
     // staff + orb
     const sx=s*0.5, sy0=-s*0.5, sy1=s*0.5; ctx.strokeStyle="#8b5a2b"; ctx.lineWidth=s*0.06; ctx.lineCap="round"; ctx.beginPath(); ctx.moveTo(sx,sy1); ctx.lineTo(sx,sy0); ctx.stroke();
@@ -600,17 +606,17 @@
   function mouth(cx,cy,r){ ctx.save(); ctx.shadowBlur=0; ctx.fillStyle="#1a1030"; ctx.beginPath(); ctx.ellipse(cx,cy,r*0.7,r,0,0,7); ctx.fill(); ctx.restore(); }
 
   // ============== HUD ==============
-  function fmtHearts(){ let s=""; for(let i=0;i<hearts;i++) s+="♥"; for(let i=hearts;i<maxHearts;i++) s+="♡"; return s||"–"; }
+  function fmtHearts(){ let s=""; for(let i=0;i<hearts;i++) s+="â™¥"; for(let i=hearts;i<maxHearts;i++) s+="â™¡"; return s||"â€“"; }
   function wpm(){ const m=playMs/60000; return m>0.02?Math.round((correctKeys/5)/m):0; }
   function accuracy(){ return totalKeys===0?100:Math.round(correctKeys/totalKeys*100); }
   function updateHUD(){ elHearts.textContent=fmtHearts(); elHearts.style.color = hearts<=1?"#ff5d6c":"#ff9fae";
     elLevel.textContent=level; elScore.textContent=score;
-    const fl=combo>=20?" ✨":combo>=10?" 🔥":combo>=5?" 🔥":""; elCombo.textContent=combo>0?"x"+combo+fl:"0"; comboChip.classList.toggle("hot",combo>=5);
+    const fl=combo>=20?" âœ¨":combo>=10?" ðŸ”¥":combo>=5?" ðŸ”¥":""; elCombo.textContent=combo>0?"x"+combo+fl:"0"; comboChip.classList.toggle("hot",combo>=5);
     elWpm.textContent=wpm(); elAcc.textContent=accuracy()+"%"; }
 
   // ============== State ==============
   function setState(s){ state=s; menu.hidden=s!=="menu"; pause.hidden=s!=="paused"; over.hidden=s!=="over";
-    $("cPause").querySelector("span:last-child").textContent=s==="paused"?"Resume":"Pause"; $("cPause").querySelector(".ic").textContent=s==="paused"?"▶️":"⏸️";
+    $("cPause").querySelector("span:last-child").textContent=s==="paused"?"Resume":"Pause"; $("cPause").querySelector(".ic").textContent=s==="paused"?"â–¶ï¸":"â¸ï¸";
     $("cHint").hidden = !(s==="playing" && isPicture());
     refreshKeyboard(); renderSpell(); }
   function makeAmbient(){ ambient=[]; const n=Math.round((W*H)/14000); for(let i=0;i<n;i++){ ambient.push({ x:Math.random()*W, y:Math.random()*H, r:1+Math.random()*1.6, vy:(Math.random()<0.5?-1:1)*H*(0.004+Math.random()*0.01), a:0.4+Math.random()*0.5, t:Math.random()*6, tw:Math.random()*6, tws:1+Math.random()*2 }); } }
@@ -623,10 +629,10 @@
     const best=score>bestScore; if(best) bestScore=score; $("newBest").hidden=!best;
     $("sScore").textContent=score; $("sLevel").textContent=level; $("sMon").textContent=monstersDefeated; $("sSpells").textContent=spellsCast; $("sWpm").textContent=wpm(); $("sAcc").textContent=accuracy()+"%";
     const a=accuracy(); let m;
-    if(a>=98) m="A true Archmage — flawless spellcasting! 🏆";
-    else if(a>=90) m="Powerful magic! Your spelling is sharp. ✨";
-    else if(a>=75) m="Well cast! Use 🔮 hints when you're unsure. 🌱";
-    else m="Keep training, young mage — the colored keys guide your fingers. 💪";
+    if(a>=98) m="A true Archmage â€” flawless spellcasting! ðŸ†";
+    else if(a>=90) m="Powerful magic! Your spelling is sharp. âœ¨";
+    else if(a>=75) m="Well cast! Use ðŸ”® hints when you're unsure. ðŸŒ±";
+    else m="Keep training, young mage â€” the colored keys guide your fingers. ðŸ’ª";
     if(level>=6) m+="  You journeyed deep into the realms!"; else if(level>=3) m+="  A fine adventure!";
     $("overMsg").textContent=m; }
   function togglePause(){ if(state==="playing") setState("paused"); else if(state==="paused") setState("playing"); }
@@ -646,8 +652,8 @@
   $("cHint").addEventListener("click",useHint);
   $("cRestart").addEventListener("click",()=>{ if(state!=="menu") startGame(); });
   $("cKb").addEventListener("click",()=>{ kbVisible=!kbVisible; kbWrap.hidden=!kbVisible; });
-  $("cSound").addEventListener("click",()=>{ sfxOn=!sfxOn; ensureAudio(); $("sndIc").textContent=sfxOn?"🔊":"🔇"; $("sndTxt").textContent=sfxOn?"SFX on":"SFX off"; if(sfxOn) sfxCast(); });
-  $("cMusic").addEventListener("click",()=>{ musicOn=!musicOn; ensureAudio(); startMusic(); $("musIc").textContent=musicOn?"🎵":"🔕"; $("musTxt").textContent=musicOn?"Music on":"Music off"; });
+  $("cSound").addEventListener("click",()=>{ sfxOn=!sfxOn; ensureAudio(); $("sndIc").textContent=sfxOn?"ðŸ”Š":"ðŸ”‡"; $("sndTxt").textContent=sfxOn?"SFX on":"SFX off"; if(sfxOn) sfxCast(); });
+  $("cMusic").addEventListener("click",()=>{ musicOn=!musicOn; ensureAudio(); startMusic(); $("musIc").textContent=musicOn?"ðŸŽµ":"ðŸ”•"; $("musTxt").textContent=musicOn?"Music on":"Music off"; });
 
   window.addEventListener("keydown",e=>{ if(e.ctrlKey||e.metaKey||e.altKey) return;
     if(e.key==="Escape"){ if(state==="playing"||state==="paused"){ e.preventDefault(); togglePause(); } return; }
@@ -665,3 +671,4 @@
 </script>
 </body>
 </html>
+

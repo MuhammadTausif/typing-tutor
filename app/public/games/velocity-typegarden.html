@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>Velocity • Type Garden — Grow Your World!</title>
+<title>Velocity â€¢ Type Garden â€” Grow Your World!</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Jost:wght@400;500;600;700;800&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
@@ -139,10 +139,16 @@
 </style>
 </head>
 <body>
+  <!-- Velocity back-nav -->
+  <style>
+    #vel-back{position:fixed;top:12px;left:12px;z-index:9999;background:rgba(124,58,237,.85);color:#fff;font-family:Inter,sans-serif;font-size:13px;font-weight:600;padding:6px 14px;border-radius:8px;text-decoration:none;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.15);transition:opacity .15s}
+    #vel-back:hover{opacity:.85}
+  </style>
+  <a id="vel-back" href="/">← Velocity</a>
 <div id="app">
   <header>
     <div class="brand">
-      <div class="logo">🌻</div>
+      <div class="logo">ðŸŒ»</div>
       <div class="txt"><span class="kicker">VELOCITY</span><h1>Type <span>Garden</span></h1></div>
     </div>
     <div class="hud">
@@ -159,12 +165,12 @@
     <!-- MENU -->
     <div class="overlay" id="menu">
       <div class="card">
-        <h2>🌱 Type words to grow your garden!</h2>
-        <p class="sub">No pressure, no lives — just type, grow, and watch your world bloom.</p>
+        <h2>ðŸŒ± Type words to grow your garden!</h2>
+        <p class="sub">No pressure, no lives â€” just type, grow, and watch your world bloom.</p>
 
         <div class="field"><span class="flab">What to type</span>
           <div class="pills" id="setPills">
-            <button class="pill on" data-set="garden">🌼 Garden Words</button>
+            <button class="pill on" data-set="garden">ðŸŒ¼ Garden Words</button>
             <button class="pill" data-set="home">Home Row</button>
             <button class="pill" data-set="easy">Easy Words</button>
             <button class="pill" data-set="common">Big Words</button>
@@ -174,14 +180,14 @@
 
         <div class="field" id="modeField"><span class="flab">Garden Words mode</span>
           <div class="pills" id="modePills">
-            <button class="pill on" data-mode="recall">🔮 Spell it (emoji clue)</button>
-            <button class="pill" data-mode="copy">📖 See the word</button>
+            <button class="pill on" data-mode="recall">ðŸ”® Spell it (emoji clue)</button>
+            <button class="pill" data-mode="copy">ðŸ“– See the word</button>
           </div>
         </div>
 
-        <p class="howto">In <b>Garden Words</b> mode an emoji clue appears — spell the word from memory and that exact plant or creature blooms in your garden! Use <b>🔮 Hint</b> (or <kbd>Tab</kbd>) to reveal a letter. Build a <b>green streak</b> for golden rarities ✨</p>
+        <p class="howto">In <b>Garden Words</b> mode an emoji clue appears â€” spell the word from memory and that exact plant or creature blooms in your garden! Use <b>ðŸ”® Hint</b> (or <kbd>Tab</kbd>) to reveal a letter. Build a <b>green streak</b> for golden rarities âœ¨</p>
 
-        <button class="btn" id="playBtn">🌿 Start Growing</button>
+        <button class="btn" id="playBtn">ðŸŒ¿ Start Growing</button>
         <p class="best" id="bestLine" hidden>Best garden: <b id="bestVal">0</b> plants</p>
       </div>
     </div>
@@ -189,34 +195,34 @@
     <!-- PAUSE -->
     <div class="overlay" id="pause" hidden>
       <div class="card">
-        <h2>Garden resting… 🌙</h2>
+        <h2>Garden restingâ€¦ ðŸŒ™</h2>
         <p class="sub">Your plants are waiting for you!</p>
-        <button class="btn" id="resumeBtn">🌿 Resume</button>
-        <div class="btn-row"><button class="btn alt" id="pRestart">↻ New Garden</button><button class="btn alt" id="pMenu">⌂ Menu</button></div>
+        <button class="btn" id="resumeBtn">ðŸŒ¿ Resume</button>
+        <div class="btn-row"><button class="btn alt" id="pRestart">â†» New Garden</button><button class="btn alt" id="pMenu">âŒ‚ Menu</button></div>
       </div>
     </div>
 
     <!-- SUMMARY -->
     <div class="overlay" id="over" hidden>
       <div class="card">
-        <h2 id="overTitle">Your garden bloomed! 🌺</h2>
+        <h2 id="overTitle">Your garden bloomed! ðŸŒº</h2>
         <p class="msg" id="overMsg"></p>
         <div class="sumgrid">
           <div class="s hl"><div class="n" id="sGrown">0</div><div class="k">Plants grown</div></div>
           <div class="s"><div class="n" id="sStreak">0</div><div class="k">Best streak</div></div>
           <div class="s"><div class="n" id="sRare">0</div><div class="k">Golden rarities</div></div>
-          <div class="s"><div class="n" id="sFlowers">0</div><div class="k">🌸 Flowers</div></div>
-          <div class="s"><div class="n" id="sTrees">0</div><div class="k">🌳 Trees</div></div>
-          <div class="s"><div class="n" id="sCreatures">0</div><div class="k">🐝 Creatures</div></div>
+          <div class="s"><div class="n" id="sFlowers">0</div><div class="k">ðŸŒ¸ Flowers</div></div>
+          <div class="s"><div class="n" id="sTrees">0</div><div class="k">ðŸŒ³ Trees</div></div>
+          <div class="s"><div class="n" id="sCreatures">0</div><div class="k">ðŸ Creatures</div></div>
         </div>
-        <button class="btn" id="againBtn">🌱 Grow Again</button>
-        <div class="btn-row"><button class="btn alt" id="oMenu">⌂ Change Settings</button></div>
+        <button class="btn" id="againBtn">ðŸŒ± Grow Again</button>
+        <div class="btn-row"><button class="btn alt" id="oMenu">âŒ‚ Change Settings</button></div>
       </div>
     </div>
   </div>
 
   <div class="spellpanel" id="spellpanel">
-    <span class="cue" id="cue">🌿 plant the seed</span>
+    <span class="cue" id="cue">ðŸŒ¿ plant the seed</span>
     <div class="spellrow">
       <div class="spellemoji" id="spellEmoji" style="display:none"></div>
       <div class="spellword" id="spellWord"></div>
@@ -226,16 +232,16 @@
   <div class="keyboard" id="keyboard"></div>
 
   <div class="controls">
-    <button class="ctl" id="cPause"><span class="ic">⏸️</span><span>Pause</span></button>
-    <button class="ctl" id="cHint"><span class="ic">🔮</span><span>Hint</span></button>
-    <button class="ctl" id="cEnd"><span class="ic">🌺</span><span>See Garden</span></button>
-    <button class="ctl" id="cSfx"><span class="ic" id="sfxIc">🔊</span><span id="sfxTxt">SFX on</span></button>
-    <button class="ctl" id="cMusic"><span class="ic" id="musIc">🎵</span><span id="musTxt">Music on</span></button>
-    <button class="ctl" id="cKb"><span class="ic">⌨️</span><span>Guide</span></button>
-    <button class="ctl" id="cMenu"><span class="ic">⌂</span><span>Menu</span></button>
+    <button class="ctl" id="cPause"><span class="ic">â¸ï¸</span><span>Pause</span></button>
+    <button class="ctl" id="cHint"><span class="ic">ðŸ”®</span><span>Hint</span></button>
+    <button class="ctl" id="cEnd"><span class="ic">ðŸŒº</span><span>See Garden</span></button>
+    <button class="ctl" id="cSfx"><span class="ic" id="sfxIc">ðŸ”Š</span><span id="sfxTxt">SFX on</span></button>
+    <button class="ctl" id="cMusic"><span class="ic" id="musIc">ðŸŽµ</span><span id="musTxt">Music on</span></button>
+    <button class="ctl" id="cKb"><span class="ic">âŒ¨ï¸</span><span>Guide</span></button>
+    <button class="ctl" id="cMenu"><span class="ic">âŒ‚</span><span>Menu</span></button>
   </div>
 
-  <p class="hint">Type the word to grow it &nbsp;·&nbsp; <kbd>Tab</kbd> hint &nbsp;·&nbsp; <kbd>Esc</kbd> pause &nbsp;·&nbsp; <kbd>Enter</kbd> start</p>
+  <p class="hint">Type the word to grow it &nbsp;Â·&nbsp; <kbd>Tab</kbd> hint &nbsp;Â·&nbsp; <kbd>Esc</kbd> pause &nbsp;Â·&nbsp; <kbd>Enter</kbd> start</p>
 </div>
 
 <script>
@@ -270,21 +276,21 @@ _add(["rock","stone","pebble","boulder","flint","slate","chalk","pebbles","grave
 const GARDEN_WORDS = Object.keys(ENTITY_MAP);
 
 const WORD_EMOJI = {
-  rose:"🌹",daisy:"🌼",tulip:"🌷",sunflower:"🌻",clover:"🍀",orchid:"🪷",lily:"🌸",iris:"💜",violet:"💜",pansy:"🌸",poppy:"🌺",lotus:"🪷",lavender:"💐",bluebell:"💙",daffodil:"💛",marigold:"🌻",jasmine:"🌸",aster:"🌸",peony:"🌸",zinnia:"🌸",flower:"🌸",blossom:"🌸",bloom:"🌸",petal:"🌸",clover:"🍀",primrose:"🌸",fuchsia:"💗",lilac:"💜",heather:"💜",
-  oak:"🌳",pine:"🌲",elm:"🌳",ash:"🌳",birch:"🌳",palm:"🌴",maple:"🍁",cedar:"🌲",willow:"🌿",cherry:"🌸",apple:"🍎",fig:"🍃",spruce:"🌲",fir:"🌲",tree:"🌳",mango:"🥭",peach:"🍑",lemon:"🍋",plum:"🫐",lime:"🍋",pear:"🍐",walnut:"🥜",chestnut:"🌰",
-  mushroom:"🍄",truffle:"🍄",toadstool:"🍄",
-  bee:"🐝",wasp:"🐝",hornet:"🐝",bumblebee:"🐝",
-  butterfly:"🦋",moth:"🦋",dragonfly:"🪲",firefly:"✨",
-  frog:"🐸",toad:"🐸",newt:"🐸",lizard:"🦎",gecko:"🦎",
-  rabbit:"🐰",hare:"🐰",bunny:"🐰",squirrel:"🐿️",hedgehog:"🦔",mouse:"🐭",vole:"🐭",
-  snail:"🐌",slug:"🐌",worm:"🪱",earthworm:"🪱",caterpillar:"🐛",
-  ladybug:"🐞",beetle:"🐞",bug:"🐞",ant:"🐜",cricket:"🦗",grasshopper:"🦗",cicada:"🦗",
-  carrot:"🥕",radish:"🫛",beet:"🫐",turnip:"🫛",parsnip:"🥕",corn:"🌽",wheat:"🌾",rye:"🌾",barley:"🌾",potato:"🥔",yam:"🥔",bean:"🫘",pea:"🫛",kale:"🥦",leek:"🧅",onion:"🧅",garlic:"🧄",pepper:"🌶️",squash:"🎃",cabbage:"🥬",tomato:"🍅",spinach:"🥬",broccoli:"🥦",lettuce:"🥬",
-  gem:"💎",ruby:"❤️",crystal:"💎",diamond:"💎",sapphire:"💙",emerald:"💚",opal:"💎",amber:"🟡",amethyst:"💜",topaz:"💛",pearl:"⚪",quartz:"💎",garnet:"❤️",citrine:"💛",
-  cloud:"☁️",mist:"🌫️",fog:"🌫️",rain:"🌧️",snow:"❄️",hail:"🌨️",dew:"💧",drizzle:"🌦️",
-  rock:"🪨",stone:"🪨",pebble:"🪨",boulder:"🪨",flint:"🪨",slate:"🪨",chalk:"⬜",gravel:"🪨"
+  rose:"ðŸŒ¹",daisy:"ðŸŒ¼",tulip:"ðŸŒ·",sunflower:"ðŸŒ»",clover:"ðŸ€",orchid:"ðŸª·",lily:"ðŸŒ¸",iris:"ðŸ’œ",violet:"ðŸ’œ",pansy:"ðŸŒ¸",poppy:"ðŸŒº",lotus:"ðŸª·",lavender:"ðŸ’",bluebell:"ðŸ’™",daffodil:"ðŸ’›",marigold:"ðŸŒ»",jasmine:"ðŸŒ¸",aster:"ðŸŒ¸",peony:"ðŸŒ¸",zinnia:"ðŸŒ¸",flower:"ðŸŒ¸",blossom:"ðŸŒ¸",bloom:"ðŸŒ¸",petal:"ðŸŒ¸",clover:"ðŸ€",primrose:"ðŸŒ¸",fuchsia:"ðŸ’—",lilac:"ðŸ’œ",heather:"ðŸ’œ",
+  oak:"ðŸŒ³",pine:"ðŸŒ²",elm:"ðŸŒ³",ash:"ðŸŒ³",birch:"ðŸŒ³",palm:"ðŸŒ´",maple:"ðŸ",cedar:"ðŸŒ²",willow:"ðŸŒ¿",cherry:"ðŸŒ¸",apple:"ðŸŽ",fig:"ðŸƒ",spruce:"ðŸŒ²",fir:"ðŸŒ²",tree:"ðŸŒ³",mango:"ðŸ¥­",peach:"ðŸ‘",lemon:"ðŸ‹",plum:"ðŸ«",lime:"ðŸ‹",pear:"ðŸ",walnut:"ðŸ¥œ",chestnut:"ðŸŒ°",
+  mushroom:"ðŸ„",truffle:"ðŸ„",toadstool:"ðŸ„",
+  bee:"ðŸ",wasp:"ðŸ",hornet:"ðŸ",bumblebee:"ðŸ",
+  butterfly:"ðŸ¦‹",moth:"ðŸ¦‹",dragonfly:"ðŸª²",firefly:"âœ¨",
+  frog:"ðŸ¸",toad:"ðŸ¸",newt:"ðŸ¸",lizard:"ðŸ¦Ž",gecko:"ðŸ¦Ž",
+  rabbit:"ðŸ°",hare:"ðŸ°",bunny:"ðŸ°",squirrel:"ðŸ¿ï¸",hedgehog:"ðŸ¦”",mouse:"ðŸ­",vole:"ðŸ­",
+  snail:"ðŸŒ",slug:"ðŸŒ",worm:"ðŸª±",earthworm:"ðŸª±",caterpillar:"ðŸ›",
+  ladybug:"ðŸž",beetle:"ðŸž",bug:"ðŸž",ant:"ðŸœ",cricket:"ðŸ¦—",grasshopper:"ðŸ¦—",cicada:"ðŸ¦—",
+  carrot:"ðŸ¥•",radish:"ðŸ«›",beet:"ðŸ«",turnip:"ðŸ«›",parsnip:"ðŸ¥•",corn:"ðŸŒ½",wheat:"ðŸŒ¾",rye:"ðŸŒ¾",barley:"ðŸŒ¾",potato:"ðŸ¥”",yam:"ðŸ¥”",bean:"ðŸ«˜",pea:"ðŸ«›",kale:"ðŸ¥¦",leek:"ðŸ§…",onion:"ðŸ§…",garlic:"ðŸ§„",pepper:"ðŸŒ¶ï¸",squash:"ðŸŽƒ",cabbage:"ðŸ¥¬",tomato:"ðŸ…",spinach:"ðŸ¥¬",broccoli:"ðŸ¥¦",lettuce:"ðŸ¥¬",
+  gem:"ðŸ’Ž",ruby:"â¤ï¸",crystal:"ðŸ’Ž",diamond:"ðŸ’Ž",sapphire:"ðŸ’™",emerald:"ðŸ’š",opal:"ðŸ’Ž",amber:"ðŸŸ¡",amethyst:"ðŸ’œ",topaz:"ðŸ’›",pearl:"âšª",quartz:"ðŸ’Ž",garnet:"â¤ï¸",citrine:"ðŸ’›",
+  cloud:"â˜ï¸",mist:"ðŸŒ«ï¸",fog:"ðŸŒ«ï¸",rain:"ðŸŒ§ï¸",snow:"â„ï¸",hail:"ðŸŒ¨ï¸",dew:"ðŸ’§",drizzle:"ðŸŒ¦ï¸",
+  rock:"ðŸª¨",stone:"ðŸª¨",pebble:"ðŸª¨",boulder:"ðŸª¨",flint:"ðŸª¨",slate:"ðŸª¨",chalk:"â¬œ",gravel:"ðŸª¨"
 };
-const TYPE_EMOJI={FLOWER:"🌸",TREE:"🌳",MUSHROOM:"🍄",BEE:"🐝",BUTTERFLY:"🦋",FROG:"🐸",RABBIT:"🐰",SNAIL:"🐌",LADYBUG:"🐞",VEGGIE:"🥕",VEGGIE_CORN:"🌽",GEM:"💎",CLOUD:"☁️",ROCK:"🪨"};
+const TYPE_EMOJI={FLOWER:"ðŸŒ¸",TREE:"ðŸŒ³",MUSHROOM:"ðŸ„",BEE:"ðŸ",BUTTERFLY:"ðŸ¦‹",FROG:"ðŸ¸",RABBIT:"ðŸ°",SNAIL:"ðŸŒ",LADYBUG:"ðŸž",VEGGIE:"ðŸ¥•",VEGGIE_CORN:"ðŸŒ½",GEM:"ðŸ’Ž",CLOUD:"â˜ï¸",ROCK:"ðŸª¨"};
 
 const FINGER={};
 "a q z 1".split(" ").forEach(c=>FINGER[c]="--f1"); "s w x 2".split(" ").forEach(c=>FINGER[c]="--f2");
@@ -339,16 +345,16 @@ function refreshKeyboard(){for(const ch in keyEls)keyEls[ch].classList.remove("n
 function flashKey(ch){const el=keyEls[ch];if(!el)return;el.classList.add("press");setTimeout(()=>el.classList.remove("press"),100);}
 
 // ====== Spell panel ======
-function renderSpell(){if(!spell){cueEl.textContent="🌿 plant the seed";emojiEl.style.display="none";wordEl.innerHTML="";return;}
+function renderSpell(){if(!spell){cueEl.textContent="ðŸŒ¿ plant the seed";emojiEl.style.display="none";wordEl.innerHTML="";return;}
   const isRecall=(cfg.set==="garden"&&cfg.mode==="recall");
-  if(isRecall){cueEl.textContent="🌸 spell the word to grow it"; emojiEl.style.display="";emojiEl.textContent=spell.emoji||"🌱";
+  if(isRecall){cueEl.textContent="ðŸŒ¸ spell the word to grow it"; emojiEl.style.display="";emojiEl.textContent=spell.emoji||"ðŸŒ±";
     let h="";for(let i=0;i<spell.word.length;i++){let cls="slot",txt="";
       if(i<spell.typed){cls+=" done";txt=spell.word[i].toUpperCase();}
       else if(i<spell.hintReveal){cls+=" hint";txt=spell.word[i].toUpperCase();}
       else{if(i===spell.typed)cls+=" cur";txt="&nbsp;";}
       h+=`<span class="${cls}">${txt}</span>`;}
     wordEl.innerHTML=h;
-  }else{cueEl.textContent="✏️ type to grow it";emojiEl.style.display="";emojiEl.textContent=spell.emoji||"🌱";
+  }else{cueEl.textContent="âœï¸ type to grow it";emojiEl.style.display="";emojiEl.textContent=spell.emoji||"ðŸŒ±";
     let h="";for(let i=0;i<spell.word.length;i++){const cls=i<spell.typed?"done":(i===spell.typed?"cur":"");h+=`<span class="ch ${cls}">${spell.word[i].toUpperCase()}</span>`;}
     wordEl.innerHTML=h;}}
 function spellErr(){wordEl.classList.add("err");setTimeout(()=>wordEl.classList.remove("err"),250);}
@@ -380,7 +386,7 @@ function addEntity(word){const type=wordToType(word)||"FLOWER";const pref=typeZo
 // ====== Word / spell selection ======
 function randGardenWord(){let w;do{const idx=(Math.random()*GARDEN_WORDS.length)|0;w=GARDEN_WORDS[idx];}while(w===lastWord&&GARDEN_WORDS.length>2);lastWord=w;return w;}
 function randWord(){if(cfg.set==="garden")return randGardenWord();const a=WORD_SETS[cfg.set]||WORD_SETS.easy;let w;do{w=a[(Math.random()*a.length)|0];}while(w===lastWord&&a.length>2);lastWord=w;return w;}
-function newSpell(){const word=randWord();const type=wordToType(word)||"FLOWER";const emoji=WORD_EMOJI[word]||TYPE_EMOJI[type]||"🌱";
+function newSpell(){const word=randWord();const type=wordToType(word)||"FLOWER";const emoji=WORD_EMOJI[word]||TYPE_EMOJI[type]||"ðŸŒ±";
   spell={word,emoji,type,typed:0,hintReveal:0,hintUsed:false};renderSpell();refreshKeyboard();}
 function useHint(){if(state!=="playing"||!spell)return;if(!(cfg.set==="garden"&&cfg.mode==="recall"))return;
   if(spell.hintReveal<=spell.typed){spell.hintReveal=spell.typed+1;spell.hintUsed=true;blip(440,.08,"triangle",.08);renderSpell();refreshKeyboard();}}
@@ -394,8 +400,8 @@ function onKey(ch){if(!/^[a-z0-9]$/.test(ch))return;if(!spell)return;totalKeys++
   renderSpell();refreshKeyboard();updateHUD();}
 function completeWord(){wordsGrown++;streak++;if(streak>maxStreak)maxStreak=streak;
   const lvl=Math.min(LEVEL_LABELS.length-1,Math.floor(wordsGrown/7));
-  if(wordsGrown>0&&wordsGrown%7===0){sfxLevel();showToast("🌱 "+LEVEL_NAMES[lvl]+"!");}
-  const e=addEntity(spell.word);floats.push({x:e.slot?e.slot.xF*W:W/2,y:e.slot?e.slot.yF*H:H/2,text:spell.emoji||"🌱",life:1,vy:-46});
+  if(wordsGrown>0&&wordsGrown%7===0){sfxLevel();showToast("ðŸŒ± "+LEVEL_NAMES[lvl]+"!");}
+  const e=addEntity(spell.word);floats.push({x:e.slot?e.slot.xF*W:W/2,y:e.slot?e.slot.yF*H:H/2,text:spell.emoji||"ðŸŒ±",life:1,vy:-46});
   timeOfDay=(timeOfDay+0.06)%2;newSpell();}
 
 const LEVEL_NAMES=["Seedling","Sprout","Gardener","Green Thumb","Blossom","Botanist","Garden Sage","Grand Gardener"];
@@ -463,7 +469,7 @@ function draw(){const now=performance.now()/1000;
   if(isNight()&&!reduce){for(let i=0;i<30;i++){const sx=(Math.sin(i*97)*0.5+0.5)*W,sy=(Math.sin(i*53)*0.5+0.5)*H*.6;const sa=0.5+0.5*Math.sin(now*1.4+i);ctx.globalAlpha=sa*.8;ctx.fillStyle="#fff";ctx.beginPath();ctx.arc(sx,sy,1+Math.random()*.5,0,7);ctx.fill();}ctx.globalAlpha=1;}
   // distant hills
   ctx.fillStyle=isNight()?"#1a3a1a":"#8bc48b";ctx.beginPath();ctx.moveTo(-10,H*.62);for(let x=-10;x<=W+10;x+=12){ctx.lineTo(x,H*.62+Math.sin(x/130)*H*.06);}ctx.lineTo(W+10,H);ctx.lineTo(-10,H);ctx.closePath();ctx.fill();
-  // back entities (trees) — draw behind fence
+  // back entities (trees) â€” draw behind fence
   entities.forEach(e=>{if(!e.slot||e.slot.zone!=="sky"&&e.slot.zone!=="back")return;drawEntity(e,e.slot);});
   // fence
   drawFence();
@@ -483,7 +489,7 @@ function draw(){const now=performance.now()/1000;
   // floats
   floats.forEach(f=>{ctx.globalAlpha=Math.max(0,f.life*1.3);ctx.font="800 "+(H*.05)+"px 'Patrick Hand',cursive";ctx.textAlign="center";ctx.fillText(f.text,f.x,f.y);});ctx.globalAlpha=1;
   // XP bar
-  const xpW=W*.28,xpH=H*.025,xpX=W*.04,xpY=H*.05;ctx.fillStyle="rgba(0,0,0,.15)";rr2(xpX-2,xpY-2,xpW+4,xpH+4,5);ctx.fill();ctx.fillStyle="rgba(255,255,255,.4)";rr2(xpX,xpY,xpW,xpH,4);ctx.fill();ctx.fillStyle="#52c41a";ctx.shadowColor="#52c41a";ctx.shadowBlur=8;rr2(xpX,xpY,xpW*(wordsGrown%7)/7,xpH,4);ctx.fill();ctx.shadowBlur=0;const lvl=Math.min(LEVEL_NAMES.length-1,Math.floor(wordsGrown/7));ctx.fillStyle=isNight()?"#c8e6c9":"#2d4a1e";ctx.font="800 "+(H*.026)+"px 'Jost',sans-serif";ctx.textAlign="left";ctx.textBaseline="bottom";ctx.fillText("🌱 "+LEVEL_NAMES[lvl],xpX,xpY-4);
+  const xpW=W*.28,xpH=H*.025,xpX=W*.04,xpY=H*.05;ctx.fillStyle="rgba(0,0,0,.15)";rr2(xpX-2,xpY-2,xpW+4,xpH+4,5);ctx.fill();ctx.fillStyle="rgba(255,255,255,.4)";rr2(xpX,xpY,xpW,xpH,4);ctx.fill();ctx.fillStyle="#52c41a";ctx.shadowColor="#52c41a";ctx.shadowBlur=8;rr2(xpX,xpY,xpW*(wordsGrown%7)/7,xpH,4);ctx.fill();ctx.shadowBlur=0;const lvl=Math.min(LEVEL_NAMES.length-1,Math.floor(wordsGrown/7));ctx.fillStyle=isNight()?"#c8e6c9":"#2d4a1e";ctx.font="800 "+(H*.026)+"px 'Jost',sans-serif";ctx.textAlign="left";ctx.textBaseline="bottom";ctx.fillText("ðŸŒ± "+LEVEL_NAMES[lvl],xpX,xpY-4);
   ctx.restore();}
 
 function drawFence(){const y=H*.66,bh=H*.07,bw=W*.027,gap=W*.028; ctx.fillStyle=isNight()?"#ccc":"#fff";ctx.strokeStyle=isNight()?"#aaa":"#e0e0e0";ctx.lineWidth=1;
@@ -494,7 +500,7 @@ function showToast(t){toast.textContent=t;toast.classList.add("show");clearTimeo
 
 // ====== HUD ======
 function levelLabel(){const l=Math.min(LEVEL_NAMES.length-1,Math.floor(wordsGrown/7));return LEVEL_NAMES[l];}
-function updateHUD(){elGrown.textContent=wordsGrown;elStreak.textContent=streak>0?streak+"🌿":"0";streakChip.classList.toggle("hot",streak>=5);elLevel.textContent=levelLabel();}
+function updateHUD(){elGrown.textContent=wordsGrown;elStreak.textContent=streak>0?streak+"ðŸŒ¿":"0";streakChip.classList.toggle("hot",streak>=5);elLevel.textContent=levelLabel();}
 
 // ====== State ======
 function setState(s){state=s;menu.hidden=s!=="menu";pause.hidden=s!=="paused";over.hidden=s!=="over";
@@ -506,8 +512,8 @@ function startGame(){ensureAudio();startMusic();resetGame();newSpell();setState(
 function endSession(){setState("over");sfxOver();const best=wordsGrown>bestGrown;if(best)bestGrown=wordsGrown;
   $("sGrown").textContent=wordsGrown;$("sStreak").textContent=maxStreak;$("sRare").textContent=rares;
   $("sFlowers").textContent=(collection.FLOWER||0)+(collection.MUSHROOM||0);$("sTrees").textContent=collection.TREE||0;$("sCreatures").textContent=(collection.BEE||0)+(collection.BUTTERFLY||0)+(collection.FROG||0)+(collection.RABBIT||0)+(collection.SNAIL||0)+(collection.LADYBUG||0);
-  const lvl=levelLabel();let m;if(wordsGrown>=35)m="A true gardening legend! 🏆";else if(wordsGrown>=20)m="Beautiful garden! Your green thumb is showing. 🌿";else if(wordsGrown>=10)m="Lovely blooms! Keep growing. 🌸";else m="Every garden starts with a single seed. 🌱";
-  $("overTitle").textContent=`${lvl}'s garden bloomed! 🌺`;$("overMsg").textContent=m;if(best){const b=$("bestLine");b.hidden=false;$("bestVal").textContent=bestGrown;}}
+  const lvl=levelLabel();let m;if(wordsGrown>=35)m="A true gardening legend! ðŸ†";else if(wordsGrown>=20)m="Beautiful garden! Your green thumb is showing. ðŸŒ¿";else if(wordsGrown>=10)m="Lovely blooms! Keep growing. ðŸŒ¸";else m="Every garden starts with a single seed. ðŸŒ±";
+  $("overTitle").textContent=`${lvl}'s garden bloomed! ðŸŒº`;$("overMsg").textContent=m;if(best){const b=$("bestLine");b.hidden=false;$("bestVal").textContent=bestGrown;}}
 function togglePause(){if(state==="playing")setState("paused");else if(state==="paused")setState("playing");}
 
 // ====== Sizing ======
@@ -525,8 +531,8 @@ $("cPause").addEventListener("click",()=>{if(state==="playing"||state==="paused"
 $("cHint").addEventListener("click",useHint);
 $("cEnd").addEventListener("click",()=>{if(state==="playing")endSession();});
 $("cKb").addEventListener("click",()=>{kbVisible=!kbVisible;kbWrap.hidden=!kbVisible;});
-$("cSfx").addEventListener("click",()=>{sfxOn=!sfxOn;ensureAudio();if(masterGain)masterGain.gain.value=sfxOn?.9:0;$("sfxIc").textContent=sfxOn?"🔊":"🔇";$("sfxTxt").textContent=sfxOn?"SFX on":"SFX off";});
-$("cMusic").addEventListener("click",()=>{musicOn=!musicOn;ensureAudio();startMusic();if(musicGain)musicGain.gain.value=musicOn?.22:0;$("musIc").textContent=musicOn?"🎵":"🔕";$("musTxt").textContent=musicOn?"Music on":"Music off";});
+$("cSfx").addEventListener("click",()=>{sfxOn=!sfxOn;ensureAudio();if(masterGain)masterGain.gain.value=sfxOn?.9:0;$("sfxIc").textContent=sfxOn?"ðŸ”Š":"ðŸ”‡";$("sfxTxt").textContent=sfxOn?"SFX on":"SFX off";});
+$("cMusic").addEventListener("click",()=>{musicOn=!musicOn;ensureAudio();startMusic();if(musicGain)musicGain.gain.value=musicOn?.22:0;$("musIc").textContent=musicOn?"ðŸŽµ":"ðŸ”•";$("musTxt").textContent=musicOn?"Music on":"Music off";});
 window.addEventListener("keydown",e=>{if(e.ctrlKey||e.metaKey||e.altKey)return;
   if(e.key==="Escape"){if(state==="playing"||state==="paused"){e.preventDefault();togglePause();}return;}
   if(e.key==="Tab"){if(state==="playing"){e.preventDefault();useHint();}return;}
@@ -543,3 +549,4 @@ buildKeyboard();setTimeout(buildKbMap,100);sizeCanvas();buildSlots();setState("m
 </script>
 </body>
 </html>
+

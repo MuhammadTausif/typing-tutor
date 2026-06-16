@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>Velocity • TypeJump — Type to Leap!</title>
+<title>Velocity â€¢ TypeJump â€” Type to Leap!</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Quicksand:wght@500;600;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
@@ -163,14 +163,20 @@
 </style>
 </head>
 <body>
+  <!-- Velocity back-nav -->
+  <style>
+    #vel-back{position:fixed;top:12px;left:12px;z-index:9999;background:rgba(124,58,237,.85);color:#fff;font-family:Inter,sans-serif;font-size:13px;font-weight:600;padding:6px 14px;border-radius:8px;text-decoration:none;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.15);transition:opacity .15s}
+    #vel-back:hover{opacity:.85}
+  </style>
+  <a id="vel-back" href="/">← Velocity</a>
 <div id="app">
   <header>
     <div class="brand">
-      <div class="logo">🦊</div>
+      <div class="logo">ðŸ¦Š</div>
       <div class="txt"><span class="kicker">VELOCITY</span><h1>Type<span>Jump</span></h1></div>
     </div>
     <div class="hud">
-      <div class="chip" id="hearts"><span class="lab">Lives</span><span class="val" id="vHearts">♥♥♥</span></div>
+      <div class="chip" id="hearts"><span class="lab">Lives</span><span class="val" id="vHearts">â™¥â™¥â™¥</span></div>
       <div class="chip"><span class="lab">Score</span><span class="val" id="vScore">0</span></div>
       <div class="chip"><span class="lab">Coins</span><span class="val" id="vCoins">0</span></div>
       <div class="chip" id="combo"><span class="lab">Combo</span><span class="val" id="vCombo">0</span></div>
@@ -187,8 +193,8 @@
     <!-- MENU -->
     <div class="overlay" id="menu">
       <div class="card">
-        <h2>Type the word, take the leap! 🦊</h2>
-        <p class="sub">Your fox runs on its own — type each word to jump over what's ahead.</p>
+        <h2>Type the word, take the leap! ðŸ¦Š</h2>
+        <p class="sub">Your fox runs on its own â€” type each word to jump over what's ahead.</p>
 
         <div class="field"><span class="flab">What to type</span>
           <div class="pills" id="setPills">
@@ -208,9 +214,9 @@
           </div>
         </div>
 
-        <p class="howto">The keyboard below glows on the <b>next letter</b> to press, in its <b>finger color</b>. Don't worry about mistakes — you have lives! Land combos 🔥 for big scores and grab <b>coins 🪙</b> in the air.</p>
+        <p class="howto">The keyboard below glows on the <b>next letter</b> to press, in its <b>finger color</b>. Don't worry about mistakes â€” you have lives! Land combos ðŸ”¥ for big scores and grab <b>coins ðŸª™</b> in the air.</p>
 
-        <button class="btn" id="playBtn">▶  Start Running</button>
+        <button class="btn" id="playBtn">â–¶  Start Running</button>
         <p class="best" id="bestLine" hidden>Session best: <b id="bestVal">0</b></p>
       </div>
     </div>
@@ -218,12 +224,12 @@
     <!-- PAUSE -->
     <div class="overlay" id="pause" hidden>
       <div class="card">
-        <h2>Paused ⏸️</h2>
-        <p class="sub">Catch your breath — the world will wait.</p>
-        <button class="btn" id="resumeBtn">▶  Resume</button>
+        <h2>Paused â¸ï¸</h2>
+        <p class="sub">Catch your breath â€” the world will wait.</p>
+        <button class="btn" id="resumeBtn">â–¶  Resume</button>
         <div class="btn-row">
-          <button class="btn alt" id="pRestart">↻ Restart</button>
-          <button class="btn alt" id="pMenu">⌂ Menu</button>
+          <button class="btn alt" id="pRestart">â†» Restart</button>
+          <button class="btn alt" id="pMenu">âŒ‚ Menu</button>
         </div>
       </div>
     </div>
@@ -231,8 +237,8 @@
     <!-- OVER -->
     <div class="overlay" id="over" hidden>
       <div class="card">
-        <div id="newBest" class="newbest" hidden>🏆 New session best!</div>
-        <h2 id="overTitle">Nice run! 🎉</h2>
+        <div id="newBest" class="newbest" hidden>ðŸ† New session best!</div>
+        <h2 id="overTitle">Nice run! ðŸŽ‰</h2>
         <p class="msg" id="overMsg"></p>
         <div class="sumgrid">
           <div class="s hl"><div class="n" id="sScore">0</div><div class="k">Score</div></div>
@@ -242,8 +248,8 @@
           <div class="s"><div class="n" id="sWpm">0</div><div class="k">WPM</div></div>
           <div class="s"><div class="n" id="sAcc">100%</div><div class="k">Accuracy</div></div>
         </div>
-        <button class="btn" id="againBtn">▶  Run Again</button>
-        <div class="btn-row"><button class="btn alt" id="oMenu">⌂ Change Settings</button></div>
+        <button class="btn" id="againBtn">â–¶  Run Again</button>
+        <div class="btn-row"><button class="btn alt" id="oMenu">âŒ‚ Change Settings</button></div>
       </div>
     </div>
   </div>
@@ -256,15 +262,15 @@
   <div class="keyboard" id="keyboard"></div>
 
   <div class="controls">
-    <button class="ctl" id="cPause"><span class="ic">⏸️</span><span>Pause</span></button>
-    <button class="ctl" id="cSound"><span class="ic" id="sndIc">🔊</span><span id="sndTxt">SFX on</span></button>
-    <button class="ctl" id="cMusic"><span class="ic" id="musIc">🎵</span><span id="musTxt">Music on</span></button>
-    <button class="ctl" id="cKb"><span class="ic">⌨️</span><span>Guide</span></button>
-    <button class="ctl" id="cRestart"><span class="ic">↻</span><span>Restart</span></button>
-    <button class="ctl" id="cMenu"><span class="ic">⌂</span><span>Menu</span></button>
+    <button class="ctl" id="cPause"><span class="ic">â¸ï¸</span><span>Pause</span></button>
+    <button class="ctl" id="cSound"><span class="ic" id="sndIc">ðŸ”Š</span><span id="sndTxt">SFX on</span></button>
+    <button class="ctl" id="cMusic"><span class="ic" id="musIc">ðŸŽµ</span><span id="musTxt">Music on</span></button>
+    <button class="ctl" id="cKb"><span class="ic">âŒ¨ï¸</span><span>Guide</span></button>
+    <button class="ctl" id="cRestart"><span class="ic">â†»</span><span>Restart</span></button>
+    <button class="ctl" id="cMenu"><span class="ic">âŒ‚</span><span>Menu</span></button>
   </div>
 
-  <p class="hint">Type the highlighted word to leap &nbsp;·&nbsp; <kbd>Esc</kbd> pause &nbsp;·&nbsp; <kbd>Enter</kbd> start / replay</p>
+  <p class="hint">Type the highlighted word to leap &nbsp;Â·&nbsp; <kbd>Esc</kbd> pause &nbsp;Â·&nbsp; <kbd>Enter</kbd> start / replay</p>
 </div>
 
 <script>
@@ -417,13 +423,13 @@
     fox.vy=H*2.0; sfxJump();
     burst(charX, groundY-H*0.06, "#ffd43b", 14);
     popups.push({ x:charX, y:groundY-H*0.32, text:"+"+pts, color:"#ffffff", life:1, vy:-40 });
-    popups.push({ x:charX+34, y:groundY-H*0.24, text:"+"+cg+"🪙", color:"#ffd43b", life:1, vy:-34 });
+    popups.push({ x:charX+34, y:groundY-H*0.24, text:"+"+cg+"ðŸª™", color:"#ffd43b", life:1, vy:-34 });
     if([5,10,15,20,25,30,40,50].includes(combo)){ comboToast(combo); sfxCombo();
       burst(charX, groundY-H*0.2, cv("--accent2"), 18); }
     renderWord();
   }
-  function comboToast(c){ const m={5:"Nice! x5 🔥",10:"On fire! x10 🔥",15:"Soaring! x15 ⚡",20:"Unstoppable! x20 🌈",25:"Incredible! x25 ✨",30:"Legendary! x30 👑"};
-    showToast(m[c]||("Combo x"+c+" 🔥")); }
+  function comboToast(c){ const m={5:"Nice! x5 ðŸ”¥",10:"On fire! x10 ðŸ”¥",15:"Soaring! x15 âš¡",20:"Unstoppable! x20 ðŸŒˆ",25:"Incredible! x25 âœ¨",30:"Legendary! x30 ðŸ‘‘"};
+    showToast(m[c]||("Combo x"+c+" ðŸ”¥")); }
   function showToast(t){ toast.textContent=t; toast.classList.add("show"); clearTimeout(showToast._t); showToast._t=setTimeout(()=>toast.classList.remove("show"),1300); }
 
   // ============== Particles / fx ==============
@@ -472,7 +478,7 @@
       // coins
       for(const c of coins){ c.x-=speed*dt; c.spin+=dt*8;
         if(!c.taken){ const dx=c.x-charX, dy=c.y-(groundY-H*0.06-fox.h); if(dx*dx+dy*dy < (H*0.13)*(H*0.13)){ c.taken=true; coinCount++; sfxCoin();
-          popups.push({x:c.x,y:c.y,text:"+1🪙",color:"#ffd43b",life:1,vy:-34}); for(let k=0;k<4;k++){ const a=Math.random()*6.28; particles.push({x:c.x,y:c.y,vx:Math.cos(a)*80,vy:Math.sin(a)*80,life:.6,r:2,color:"#fff3b0",g:200}); } updateHUD(); } } }
+          popups.push({x:c.x,y:c.y,text:"+1ðŸª™",color:"#ffd43b",life:1,vy:-34}); for(let k=0;k<4;k++){ const a=Math.random()*6.28; particles.push({x:c.x,y:c.y,vx:Math.cos(a)*80,vy:Math.sin(a)*80,life:.6,r:2,color:"#fff3b0",g:200}); } updateHUD(); } } }
       coins=coins.filter(c=> c.x>-60 && !c.taken);
     }
     if(shake>0) shake=Math.max(0,shake-dt*55);
@@ -519,7 +525,7 @@
       ctx.save(); ctx.translate(c.x,c.y);
       ctx.fillStyle="#f0a500"; rr(-r*sxs-1,-r-1,(r*sxs+1)*2,(r+1)*2,r); ctx.fill();
       ctx.fillStyle="#ffd43b"; rr(-r*sxs,-r,r*sxs*2,r*2,r*0.9); ctx.fill();
-      if(sxs>0.4){ ctx.fillStyle="#fff3b0"; ctx.font="700 "+(r*1.1)+"px 'Space Mono', monospace"; ctx.textAlign="center"; ctx.textBaseline="middle"; ctx.fillText("★",0,1); }
+      if(sxs>0.4){ ctx.fillStyle="#fff3b0"; ctx.font="700 "+(r*1.1)+"px 'Space Mono', monospace"; ctx.textAlign="center"; ctx.textBaseline="middle"; ctx.fillText("â˜…",0,1); }
       ctx.restore(); });
 
     // obstacles + banners
@@ -624,12 +630,12 @@
   }
 
   // ============== HUD ==============
-  function fmtHearts(){ let s=""; for(let i=0;i<lives;i++) s+="♥"; if(!s) s="–"; return s; }
+  function fmtHearts(){ let s=""; for(let i=0;i<lives;i++) s+="â™¥"; if(!s) s="â€“"; return s; }
   function wpm(){ const m=playMs/60000; return m>0.02 ? Math.round((correctKeys/5)/m) : 0; }
   function accuracy(){ return totalKeys===0?100:Math.round(correctKeys/totalKeys*100); }
   function updateHUD(){
     elScore.textContent=score; elCoins.textContent=coinCount;
-    const flame=combo>=20?" 🌈":combo>=10?" 🔥":combo>=5?" 🔥":"";
+    const flame=combo>=20?" ðŸŒˆ":combo>=10?" ðŸ”¥":combo>=5?" ðŸ”¥":"";
     elCombo.textContent = combo>0 ? "x"+combo+flame : "0"; comboChip.classList.toggle("hot",combo>=5);
     elDist.textContent=Math.floor(distancePx/45)+"m";
     elWpm.textContent=wpm(); elAcc.textContent=accuracy()+"%";
@@ -639,7 +645,7 @@
   // ============== State ==============
   function setState(s){ state=s; menu.hidden=s!=="menu"; pause.hidden=s!=="paused"; over.hidden=s!=="over";
     $("cPause").querySelector("span:last-child").textContent = s==="paused"?"Resume":"Pause";
-    $("cPause").querySelector(".ic").textContent = s==="paused"?"▶️":"⏸️";
+    $("cPause").querySelector(".ic").textContent = s==="paused"?"â–¶ï¸":"â¸ï¸";
     refreshKeyboard(); renderWord(); }
   function resetGame(){ const d=DIFF[cfg.diff];
     obstacles=[]; coins=[]; particles=[]; popups=[]; trail=[];
@@ -655,10 +661,10 @@
     $("sScore").textContent=score; $("sDist").textContent=Math.floor(distancePx/45)+"m";
     $("sCoins").textContent=coinCount; $("sWords").textContent=words; $("sWpm").textContent=wpm(); $("sAcc").textContent=accuracy()+"%";
     const a=accuracy(), dm=Math.floor(distancePx/45); let m;
-    if(a>=98) m="Flawless fingers — incredible accuracy! 🏆";
-    else if(a>=90) m="Great typing! Keep that rhythm going. ✨";
-    else if(a>=75) m="Good run! Aim for the glowing letter. 🌱";
-    else m="Keep practising — watch the colored keys for your fingers. 💪";
+    if(a>=98) m="Flawless fingers â€” incredible accuracy! ðŸ†";
+    else if(a>=90) m="Great typing! Keep that rhythm going. âœ¨";
+    else if(a>=75) m="Good run! Aim for the glowing letter. ðŸŒ±";
+    else m="Keep practising â€” watch the colored keys for your fingers. ðŸ’ª";
     if(dm>=400) m+="  And what a distance!"; else if(dm>=150) m+="  Solid distance!";
     $("overMsg").textContent=m;
   }
@@ -682,8 +688,8 @@
   $("cPause").addEventListener("click",()=>{ if(state==="playing"||state==="paused") togglePause(); });
   $("cRestart").addEventListener("click",()=>{ if(state!=="menu") startGame(); });
   $("cKb").addEventListener("click",()=>{ kbVisible=!kbVisible; kbWrap.hidden=!kbVisible; });
-  $("cSound").addEventListener("click",()=>{ sfxOn=!sfxOn; ensureAudio(); $("sndIc").textContent=sfxOn?"🔊":"🔇"; $("sndTxt").textContent=sfxOn?"SFX on":"SFX off"; if(sfxOn) sfxType(); });
-  $("cMusic").addEventListener("click",()=>{ musicOn=!musicOn; ensureAudio(); startMusic(); $("musIc").textContent=musicOn?"🎵":"🔕"; $("musTxt").textContent=musicOn?"Music on":"Music off"; });
+  $("cSound").addEventListener("click",()=>{ sfxOn=!sfxOn; ensureAudio(); $("sndIc").textContent=sfxOn?"ðŸ”Š":"ðŸ”‡"; $("sndTxt").textContent=sfxOn?"SFX on":"SFX off"; if(sfxOn) sfxType(); });
+  $("cMusic").addEventListener("click",()=>{ musicOn=!musicOn; ensureAudio(); startMusic(); $("musIc").textContent=musicOn?"ðŸŽµ":"ðŸ”•"; $("musTxt").textContent=musicOn?"Music on":"Music off"; });
 
   window.addEventListener("keydown",e=>{
     if(e.ctrlKey||e.metaKey||e.altKey) return;
@@ -709,3 +715,4 @@
 </script>
 </body>
 </html>
+

@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>Velocity • TypeBeat — Type to the Rhythm!</title>
+<title>Velocity â€¢ TypeBeat â€” Type to the Rhythm!</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -117,10 +117,16 @@
 </style>
 </head>
 <body>
+  <!-- Velocity back-nav -->
+  <style>
+    #vel-back{position:fixed;top:12px;left:12px;z-index:9999;background:rgba(124,58,237,.85);color:#fff;font-family:Inter,sans-serif;font-size:13px;font-weight:600;padding:6px 14px;border-radius:8px;text-decoration:none;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.15);transition:opacity .15s}
+    #vel-back:hover{opacity:.85}
+  </style>
+  <a id="vel-back" href="/">← Velocity</a>
 <div id="app">
   <header>
     <div class="brand">
-      <div class="logo">🎧</div>
+      <div class="logo">ðŸŽ§</div>
       <div class="txt"><span class="kicker">VELOCITY</span><h1>Type<span>Beat</span></h1></div>
     </div>
     <div class="hud">
@@ -138,8 +144,8 @@
     <!-- MENU -->
     <div class="overlay" id="menu">
       <div class="card">
-        <h2>Hit the keys to the beat 🎶</h2>
-        <p class="sub">Keys drop down the musical keyboard — press each one right as it lands on the glowing line!</p>
+        <h2>Hit the keys to the beat ðŸŽ¶</h2>
+        <p class="sub">Keys drop down the musical keyboard â€” press each one right as it lands on the glowing line!</p>
 
         <div class="field"><span class="flab">Keys to play</span>
           <div class="pills" id="setPills">
@@ -153,34 +159,34 @@
 
         <div class="field"><span class="flab">Tempo</span>
           <div class="pills" id="diffPills">
-            <button class="pill on" data-diff="easy">🐢 Slow Jam</button>
-            <button class="pill" data-diff="medium">🕺 Groovy</button>
-            <button class="pill" data-diff="hard">⚡ Funky Fast</button>
+            <button class="pill on" data-diff="easy">ðŸ¢ Slow Jam</button>
+            <button class="pill" data-diff="medium">ðŸ•º Groovy</button>
+            <button class="pill" data-diff="hard">âš¡ Funky Fast</button>
           </div>
         </div>
 
-        <p class="howto">Notes sit above the key you'll press — like a falling keyboard! Aim for <b style="color:#39e6a8">PERFECT</b> timing, keep the combo alive for a bigger multiplier, and don't let your <b>Groove</b> meter run dry. Earn a top grade at the end!</p>
+        <p class="howto">Notes sit above the key you'll press â€” like a falling keyboard! Aim for <b style="color:#39e6a8">PERFECT</b> timing, keep the combo alive for a bigger multiplier, and don't let your <b>Groove</b> meter run dry. Earn a top grade at the end!</p>
 
-        <button class="btn" id="playBtn">▶  Start the Music</button>
-        <p class="best" id="bestLine" hidden>Best grade: <b id="bestVal">–</b></p>
+        <button class="btn" id="playBtn">â–¶  Start the Music</button>
+        <p class="best" id="bestLine" hidden>Best grade: <b id="bestVal">â€“</b></p>
       </div>
     </div>
 
     <!-- PAUSE -->
     <div class="overlay" id="pause" hidden>
       <div class="card">
-        <h2>Paused ⏸️</h2>
-        <p class="sub">The beat is on hold…</p>
-        <button class="btn" id="resumeBtn">▶  Resume</button>
-        <div class="btn-row"><button class="btn alt" id="pRestart">↻ Restart</button><button class="btn alt" id="pMenu">⌂ Menu</button></div>
+        <h2>Paused â¸ï¸</h2>
+        <p class="sub">The beat is on holdâ€¦</p>
+        <button class="btn" id="resumeBtn">â–¶  Resume</button>
+        <div class="btn-row"><button class="btn alt" id="pRestart">â†» Restart</button><button class="btn alt" id="pMenu">âŒ‚ Menu</button></div>
       </div>
     </div>
 
     <!-- OVER -->
     <div class="overlay" id="over" hidden>
       <div class="card">
-        <div id="newBest" class="newbest" hidden>🏆 New best grade!</div>
-        <h2 id="overTitle">Song complete! 🎉</h2>
+        <div id="newBest" class="newbest" hidden>ðŸ† New best grade!</div>
+        <h2 id="overTitle">Song complete! ðŸŽ‰</h2>
         <div class="gradebig" id="gradeBig">A</div>
         <p class="msg" id="overMsg"></p>
         <div class="sumgrid">
@@ -191,21 +197,21 @@
           <div class="s"><div class="n" id="sCombo">0</div><div class="k">Max Combo</div></div>
           <div class="s"><div class="n" id="sAcc">100%</div><div class="k">Accuracy</div></div>
         </div>
-        <button class="btn" id="againBtn">▶  Play Again</button>
-        <div class="btn-row"><button class="btn alt" id="oMenu">⌂ Change Settings</button></div>
+        <button class="btn" id="againBtn">â–¶  Play Again</button>
+        <div class="btn-row"><button class="btn alt" id="oMenu">âŒ‚ Change Settings</button></div>
       </div>
     </div>
   </div>
 
   <div class="controls">
-    <button class="ctl" id="cPause"><span class="ic">⏸️</span><span>Pause</span></button>
-    <button class="ctl" id="cSound"><span class="ic" id="sndIc">🔊</span><span id="sndTxt">Sound on</span></button>
-    <button class="ctl" id="cGuide"><span class="ic">💡</span><span>Guide</span></button>
-    <button class="ctl" id="cRestart"><span class="ic">↻</span><span>Restart</span></button>
-    <button class="ctl" id="cMenu"><span class="ic">⌂</span><span>Menu</span></button>
+    <button class="ctl" id="cPause"><span class="ic">â¸ï¸</span><span>Pause</span></button>
+    <button class="ctl" id="cSound"><span class="ic" id="sndIc">ðŸ”Š</span><span id="sndTxt">Sound on</span></button>
+    <button class="ctl" id="cGuide"><span class="ic">ðŸ’¡</span><span>Guide</span></button>
+    <button class="ctl" id="cRestart"><span class="ic">â†»</span><span>Restart</span></button>
+    <button class="ctl" id="cMenu"><span class="ic">âŒ‚</span><span>Menu</span></button>
   </div>
 
-  <p class="hint">Press each key as it reaches the line &nbsp;·&nbsp; <kbd>Esc</kbd> pause &nbsp;·&nbsp; <kbd>Enter</kbd> start / replay</p>
+  <p class="hint">Press each key as it reaches the line &nbsp;Â·&nbsp; <kbd>Esc</kbd> pause &nbsp;Â·&nbsp; <kbd>Enter</kbd> start / replay</p>
 </div>
 
 <script>
@@ -251,7 +257,7 @@
   let state="menu";
   let chart=[], particles=[], feedbacks=[], confetti=[];
   let score=0, combo=0, maxCombo=0, perfects=0, goods=0, misses=0, groove=55;
-  let bestGrade="–", lastTs=0, shake=0, guideOn=true, soundOn=true;
+  let bestGrade="â€“", lastTs=0, shake=0, guideOn=true, soundOn=true;
   let D=null, scrollPPS=0, endTime=0, finished=false;
   let W=0,H=0,DPR=1, hitY=0, spawnY=0, margin=0;
   const recFlash={};
@@ -294,7 +300,7 @@
     if(res==="perfect"){ perfects++; combo++; hitPitch=Math.min(PENT.length-1,hitPitch+1); score+=Math.round(100*mult()); pluck(true); spark(x,hitY,cv("--perfect"),12); feedbacks.push({x,text:"PERFECT",color:cv("--perfect"),life:1}); groove=Math.min(100,groove+5); confettiBurst(x); }
     else { goods++; combo++; hitPitch=Math.min(PENT.length-1,hitPitch+1); score+=Math.round(55*mult()); pluck(false); spark(x,hitY,cv("--good"),8); feedbacks.push({x,text:"GOOD",color:cv("--good"),life:1}); groove=Math.min(100,groove+2.5); }
     if(combo>maxCombo) maxCombo=combo;
-    if(combo>0 && combo%25===0) showToast(combo+" COMBO! 🔥");
+    if(combo>0 && combo%25===0) showToast(combo+" COMBO! ðŸ”¥");
     updateHUD();
   }
   function missNote(n){ n.judged=true; n.result="miss"; misses++; combo=0; hitPitch=Math.max(0,hitPitch-3); thud();
@@ -392,7 +398,7 @@
 
   // ============== HUD ==============
   function accuracy(){ const tot=perfects+goods+misses; if(!tot) return 100; return Math.round((perfects + goods*0.55)/tot*100); }
-  function updateHUD(){ elScore.textContent=score; const fl=combo>=30?" ✨":combo>=15?" 🔥":combo>=5?" 🔥":"";
+  function updateHUD(){ elScore.textContent=score; const fl=combo>=30?" âœ¨":combo>=15?" ðŸ”¥":combo>=5?" ðŸ”¥":"";
     elCombo.textContent=combo>0?combo+fl:"0"; comboChip.classList.toggle("hot",combo>=10);
     elMult.textContent="x"+mult(); elAcc.textContent=accuracy()+"%"; }
 
@@ -400,7 +406,7 @@
 
   // ============== State ==============
   function setState(s){ state=s; menu.hidden=s!=="menu"; pause.hidden=s!=="paused"; over.hidden=s!=="over";
-    $("cPause").querySelector("span:last-child").textContent=s==="paused"?"Resume":"Pause"; $("cPause").querySelector(".ic").textContent=s==="paused"?"▶️":"⏸️"; }
+    $("cPause").querySelector("span:last-child").textContent=s==="paused"?"Resume":"Pause"; $("cPause").querySelector(".ic").textContent=s==="paused"?"â–¶ï¸":"â¸ï¸"; }
   function resetCounters(){ score=0; combo=0; maxCombo=0; perfects=0; goods=0; misses=0; groove=55; hitPitch=0; finished=false;
     particles=[]; confetti=[]; feedbacks=[]; for(const k in recFlash) delete recFlash[k]; updateHUD(); }
   function startGame(){ ensureAudio(); resetCounters(); buildChart();
@@ -410,10 +416,10 @@
   function endGame(complete){ if(state==="over") return; setState("over"); if(schedTimer){ clearInterval(schedTimer); schedTimer=null; }
     const acc=accuracy(); const [gr,gcol]=gradeFor(acc);
     $("gradeBig").textContent=gr; $("gradeBig").style.color=gcol;
-    $("overTitle").textContent = complete ? "Song complete! 🎉" : "Out of groove! 💫";
+    $("overTitle").textContent = complete ? "Song complete! ðŸŽ‰" : "Out of groove! ðŸ’«";
     $("sScore").textContent=score; $("sPerfect").textContent=perfects; $("sGood").textContent=goods; $("sMiss").textContent=misses; $("sCombo").textContent=maxCombo; $("sAcc").textContent=acc+"%";
     const order=["D","C","B","A","S"]; const isBest = order.indexOf(gr) > order.indexOf(bestGrade); if(isBest) bestGrade=gr; $("newBest").hidden=!isBest;
-    let m; if(gr==="S") m="Perfect rhythm — you're a star! 🌟"; else if(gr==="A") m="Amazing timing! So smooth. ✨"; else if(gr==="B") m="Nice groove! Keep the beat steady. 🎵"; else if(gr==="C") m="Good effort — watch the line and breathe with the beat. 🌱"; else m="Keep practising — try Slow Jam to find your rhythm. 💪";
+    let m; if(gr==="S") m="Perfect rhythm â€” you're a star! ðŸŒŸ"; else if(gr==="A") m="Amazing timing! So smooth. âœ¨"; else if(gr==="B") m="Nice groove! Keep the beat steady. ðŸŽµ"; else if(gr==="C") m="Good effort â€” watch the line and breathe with the beat. ðŸŒ±"; else m="Keep practising â€” try Slow Jam to find your rhythm. ðŸ’ª";
     $("overMsg").textContent=m; fanfare(complete && (gr==="S"||gr==="A")); }
   function togglePause(){ if(state==="playing"){ setState("paused"); if(actx) actx.suspend(); } else if(state==="paused"){ setState("playing"); if(actx) actx.resume(); } }
 
@@ -428,11 +434,11 @@
   $("playBtn").addEventListener("click",startGame); $("againBtn").addEventListener("click",startGame);
   $("resumeBtn").addEventListener("click",()=>{ setState("playing"); if(actx) actx.resume(); });
   $("pRestart").addEventListener("click",startGame);
-  ["pMenu","oMenu","cMenu"].forEach(id=>$(id).addEventListener("click",()=>{ if(schedTimer){ clearInterval(schedTimer); schedTimer=null; } if(actx&&actx.state==="suspended") actx.resume(); setState("menu"); const b=$("bestLine"); if(bestGrade!=="–"){ b.hidden=false; $("bestVal").textContent=bestGrade; } }));
+  ["pMenu","oMenu","cMenu"].forEach(id=>$(id).addEventListener("click",()=>{ if(schedTimer){ clearInterval(schedTimer); schedTimer=null; } if(actx&&actx.state==="suspended") actx.resume(); setState("menu"); const b=$("bestLine"); if(bestGrade!=="â€“"){ b.hidden=false; $("bestVal").textContent=bestGrade; } }));
   $("cPause").addEventListener("click",()=>{ if(state==="playing"||state==="paused") togglePause(); });
   $("cRestart").addEventListener("click",()=>{ if(state!=="menu") startGame(); });
   $("cGuide").addEventListener("click",()=>{ guideOn=!guideOn; });
-  $("cSound").addEventListener("click",()=>{ soundOn=!soundOn; ensureAudio(); if(master) master.gain.value=soundOn?0.9:0; $("sndIc").textContent=soundOn?"🔊":"🔇"; $("sndTxt").textContent=soundOn?"Sound on":"Muted"; });
+  $("cSound").addEventListener("click",()=>{ soundOn=!soundOn; ensureAudio(); if(master) master.gain.value=soundOn?0.9:0; $("sndIc").textContent=soundOn?"ðŸ”Š":"ðŸ”‡"; $("sndTxt").textContent=soundOn?"Sound on":"Muted"; });
 
   window.addEventListener("keydown",e=>{ if(e.ctrlKey||e.metaKey||e.altKey) return;
     if(e.key==="Escape"){ if(state==="playing"||state==="paused"){ e.preventDefault(); togglePause(); } return; }
@@ -449,3 +455,4 @@
 </script>
 </body>
 </html>
+

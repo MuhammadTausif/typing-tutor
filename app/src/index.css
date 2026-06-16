@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { @apply h-full; }
+  body { @apply h-full bg-navy-950 text-slate-100 antialiased; }
+  #root { @apply h-full; }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { @apply bg-transparent; }
+  ::-webkit-scrollbar-thumb { @apply bg-vel-border rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-vel-dim; }
+
+  * { @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vel-violet/60 focus-visible:ring-offset-1 focus-visible:ring-offset-navy-950; }
+}
+
+@layer utilities {
+  .char-current {
+    @apply text-white border-l-2 animate-cursor-blink;
+  }
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-vel-violet to-vel-cyan;
+  }
+  .card {
+    @apply bg-panel/60 border border-vel-border/50 rounded-xl backdrop-blur-sm;
+  }
+  .card-hover {
+    @apply card transition-all duration-200 hover:border-vel-border hover:bg-panel/80;
+  }
+}
