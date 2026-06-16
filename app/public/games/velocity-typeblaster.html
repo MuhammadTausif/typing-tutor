@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>Velocity • TypeBlaster — Type to Destroy!</title>
+<title>Velocity â€¢ TypeBlaster â€” Type to Destroy!</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -145,10 +145,16 @@
 </style>
 </head>
 <body>
+  <!-- Velocity back-nav -->
+  <style>
+    #vel-back{position:fixed;top:12px;left:12px;z-index:9999;background:rgba(124,58,237,.85);color:#fff;font-family:Inter,sans-serif;font-size:13px;font-weight:600;padding:6px 14px;border-radius:8px;text-decoration:none;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.15);transition:opacity .15s}
+    #vel-back:hover{opacity:.85}
+  </style>
+  <a id="vel-back" href="/">← Velocity</a>
 <div id="app">
   <header>
     <div class="brand">
-      <div class="logo">🚀</div>
+      <div class="logo">ðŸš€</div>
       <div class="txt"><span class="kicker">VELOCITY</span><h1>Type<span>Blaster</span></h1></div>
     </div>
     <div class="hud">
@@ -168,8 +174,8 @@
     <!-- MENU -->
     <div class="overlay" id="menu">
       <div class="card">
-        <h2>Type the word, fire the laser! 🚀</h2>
-        <p class="sub">Enemies dive from above. Type a word to lock on — each letter fires a shot. Finish it to destroy them!</p>
+        <h2>Type the word, fire the laser! ðŸš€</h2>
+        <p class="sub">Enemies dive from above. Type a word to lock on â€” each letter fires a shot. Finish it to destroy them!</p>
 
         <div class="field"><span class="flab">What to type</span>
           <div class="pills" id="setPills">
@@ -189,9 +195,9 @@
           </div>
         </div>
 
-        <p class="howto">Type the <b>first letter</b> of any enemy to lock on, then keep typing its word. The keyboard below glows on the keys you can press — in each <b>finger color</b>. Watch for power-ups: <b style="color:#fbbf24">☢ nuke</b>, <b style="color:#34d399">✚ repair</b>, <b style="color:#c084fc">❄ slow-mo</b>!</p>
+        <p class="howto">Type the <b>first letter</b> of any enemy to lock on, then keep typing its word. The keyboard below glows on the keys you can press â€” in each <b>finger color</b>. Watch for power-ups: <b style="color:#fbbf24">â˜¢ nuke</b>, <b style="color:#34d399">âœš repair</b>, <b style="color:#c084fc">â„ slow-mo</b>!</p>
 
-        <button class="btn" id="playBtn">▶  Launch</button>
+        <button class="btn" id="playBtn">â–¶  Launch</button>
         <p class="best" id="bestLine" hidden>Session best: <b id="bestVal">0</b></p>
       </div>
     </div>
@@ -199,18 +205,18 @@
     <!-- PAUSE -->
     <div class="overlay" id="pause" hidden>
       <div class="card">
-        <h2>Paused ⏸️</h2>
+        <h2>Paused â¸ï¸</h2>
         <p class="sub">The fleet is holding position.</p>
-        <button class="btn" id="resumeBtn">▶  Resume</button>
-        <div class="btn-row"><button class="btn alt" id="pRestart">↻ Restart</button><button class="btn alt" id="pMenu">⌂ Menu</button></div>
+        <button class="btn" id="resumeBtn">â–¶  Resume</button>
+        <div class="btn-row"><button class="btn alt" id="pRestart">â†» Restart</button><button class="btn alt" id="pMenu">âŒ‚ Menu</button></div>
       </div>
     </div>
 
     <!-- OVER -->
     <div class="overlay" id="over" hidden>
       <div class="card">
-        <div id="newBest" class="newbest" hidden>🏆 New session best!</div>
-        <h2 id="overTitle">Ship down! 💥</h2>
+        <div id="newBest" class="newbest" hidden>ðŸ† New session best!</div>
+        <h2 id="overTitle">Ship down! ðŸ’¥</h2>
         <p class="msg" id="overMsg"></p>
         <div class="sumgrid">
           <div class="s hl"><div class="n" id="sScore">0</div><div class="k">Score</div></div>
@@ -220,8 +226,8 @@
           <div class="s"><div class="n" id="sWpm">0</div><div class="k">WPM</div></div>
           <div class="s"><div class="n" id="sAcc">100%</div><div class="k">Accuracy</div></div>
         </div>
-        <button class="btn" id="againBtn">▶  Fly Again</button>
-        <div class="btn-row"><button class="btn alt" id="oMenu">⌂ Change Settings</button></div>
+        <button class="btn" id="againBtn">â–¶  Fly Again</button>
+        <div class="btn-row"><button class="btn alt" id="oMenu">âŒ‚ Change Settings</button></div>
       </div>
     </div>
   </div>
@@ -234,15 +240,15 @@
   <div class="keyboard" id="keyboard"></div>
 
   <div class="controls">
-    <button class="ctl" id="cPause"><span class="ic">⏸️</span><span>Pause</span></button>
-    <button class="ctl" id="cSound"><span class="ic" id="sndIc">🔊</span><span id="sndTxt">SFX on</span></button>
-    <button class="ctl" id="cMusic"><span class="ic" id="musIc">🎵</span><span id="musTxt">Music on</span></button>
-    <button class="ctl" id="cKb"><span class="ic">⌨️</span><span>Guide</span></button>
-    <button class="ctl" id="cRestart"><span class="ic">↻</span><span>Restart</span></button>
-    <button class="ctl" id="cMenu"><span class="ic">⌂</span><span>Menu</span></button>
+    <button class="ctl" id="cPause"><span class="ic">â¸ï¸</span><span>Pause</span></button>
+    <button class="ctl" id="cSound"><span class="ic" id="sndIc">ðŸ”Š</span><span id="sndTxt">SFX on</span></button>
+    <button class="ctl" id="cMusic"><span class="ic" id="musIc">ðŸŽµ</span><span id="musTxt">Music on</span></button>
+    <button class="ctl" id="cKb"><span class="ic">âŒ¨ï¸</span><span>Guide</span></button>
+    <button class="ctl" id="cRestart"><span class="ic">â†»</span><span>Restart</span></button>
+    <button class="ctl" id="cMenu"><span class="ic">âŒ‚</span><span>Menu</span></button>
   </div>
 
-  <p class="hint">Type a word's first letter to lock on, finish it to destroy &nbsp;·&nbsp; <kbd>Esc</kbd> pause &nbsp;·&nbsp; <kbd>Enter</kbd> launch / replay</p>
+  <p class="hint">Type a word's first letter to lock on, finish it to destroy &nbsp;Â·&nbsp; <kbd>Esc</kbd> pause &nbsp;Â·&nbsp; <kbd>Enter</kbd> launch / replay</p>
 </div>
 
 <script>
@@ -387,12 +393,12 @@
     if(kills>0 && kills % KILLS_PER_WAVE === 0) nextWave();
   }
   function triggerSpecial(s, e){ sfxPow();
-    if(s==="nuke"){ showToast("☢ NUKE!"); shake=22; flashG=1; sfxNuke();
+    if(s==="nuke"){ showToast("â˜¢ NUKE!"); shake=22; flashG=1; sfxNuke();
       const snap=enemies.filter(x=>!x.dead && x!==e); snap.forEach((x,i)=>{ x.glow=1; destroyEnemy(x,true); }); }
-    else if(s==="heal"){ shield=Math.min(100,shield+30); showToast("✚ SHIELD +30"); flashG=0.6; }
-    else if(s==="slow"){ slowT=4.2; showToast("❄ SLOW-MO!"); } }
+    else if(s==="heal"){ shield=Math.min(100,shield+30); showToast("âœš SHIELD +30"); flashG=0.6; }
+    else if(s==="slow"){ slowT=4.2; showToast("â„ SLOW-MO!"); } }
   function nextWave(){ wave++; const perfect=breachesThisWave===0; breachesThisWave=0; sfxWave();
-    if(perfect && wave>2){ score+=100; showToast("WAVE "+wave+" • PERFECT +100"); } else showToast("WAVE "+wave); updateHUD(); }
+    if(perfect && wave>2){ score+=100; showToast("WAVE "+wave+" â€¢ PERFECT +100"); } else showToast("WAVE "+wave); updateHUD(); }
   function breach(e){ if(e.dead) return; e.dead=true; e.breached=true; breachesThisWave++;
     const d=DIFF[cfg.diff]; shield=Math.max(0,shield-d.hit); combo=0; shake=20; vignette=1; sfxBreach();
     explode(e.x,e.y,cv("--danger"),20); if(locked===e) locked=null; updateHUD(); refreshKeyboard(); renderWord();
@@ -499,7 +505,7 @@
     ctx.restore();
     // special icon (upright)
     if(e.type==="special"){ ctx.shadowBlur=0; ctx.fillStyle="#06030f"; ctx.font="700 "+(e.r*1.05)+"px 'Chakra Petch',sans-serif"; ctx.textAlign="center"; ctx.textBaseline="middle";
-      ctx.fillText(e.special==="nuke"?"☢":e.special==="heal"?"✚":"❄",0,1); }
+      ctx.fillText(e.special==="nuke"?"â˜¢":e.special==="heal"?"âœš":"â„",0,1); }
     ctx.restore();
 
     // targeting brackets
@@ -550,12 +556,12 @@
   function wpm(){ const m=playMs/60000; return m>0.02?Math.round((correctKeys/5)/m):0; }
   function accuracy(){ return totalKeys===0?100:Math.round(correctKeys/totalKeys*100); }
   function updateHUD(){ elScore.textContent=score;
-    const fl=combo>=20?" 🌈":combo>=10?" 🔥":combo>=5?" 🔥":""; elCombo.textContent=combo>0?"x"+combo+fl:"0"; comboChip.classList.toggle("hot",combo>=5);
+    const fl=combo>=20?" ðŸŒˆ":combo>=10?" ðŸ”¥":combo>=5?" ðŸ”¥":""; elCombo.textContent=combo>0?"x"+combo+fl:"0"; comboChip.classList.toggle("hot",combo>=5);
     elWave.textContent=wave; elKills.textContent=kills; elWpm.textContent=wpm(); elAcc.textContent=accuracy()+"%"; }
 
   // ============== State ==============
   function setState(s){ state=s; menu.hidden=s!=="menu"; pause.hidden=s!=="paused"; over.hidden=s!=="over";
-    $("cPause").querySelector("span:last-child").textContent=s==="paused"?"Resume":"Pause"; $("cPause").querySelector(".ic").textContent=s==="paused"?"▶️":"⏸️";
+    $("cPause").querySelector("span:last-child").textContent=s==="paused"?"Resume":"Pause"; $("cPause").querySelector(".ic").textContent=s==="paused"?"â–¶ï¸":"â¸ï¸";
     refreshKeyboard(); renderWord(); }
   function makeStars(){ stars=[]; const n=Math.round((W*H)/9000); for(let i=0;i<n;i++){ const layer=Math.random();
       stars.push({ x:Math.random()*W, y:Math.random()*H, r:layer<0.6?1:1.8, v:H*(0.02+layer*0.12), a:0.4+layer*0.5, c:Math.random()<0.2?cv("--cyan"):"#cdd6ff", tw:Math.random()*6, tws:1+Math.random()*3 }); } }
@@ -568,10 +574,10 @@
     const best=score>bestScore; if(best) bestScore=score; $("newBest").hidden=!best;
     $("sScore").textContent=score; $("sWave").textContent=wave; $("sKills").textContent=kills; $("sCombo").textContent="x"+maxCombo; $("sWpm").textContent=wpm(); $("sAcc").textContent=accuracy()+"%";
     const a=accuracy(); let m;
-    if(a>=98) m="Ace marksmanship — flawless accuracy! 🏆";
-    else if(a>=90) m="Sharp shooting, pilot! Keep it up. ✨";
-    else if(a>=75) m="Solid run! Aim for the glowing letter. 🌱";
-    else m="Keep training — watch the colored keys for your fingers. 💪";
+    if(a>=98) m="Ace marksmanship â€” flawless accuracy! ðŸ†";
+    else if(a>=90) m="Sharp shooting, pilot! Keep it up. âœ¨";
+    else if(a>=75) m="Solid run! Aim for the glowing letter. ðŸŒ±";
+    else m="Keep training â€” watch the colored keys for your fingers. ðŸ’ª";
     if(wave>=8) m+="  And you went deep into the swarm!"; else if(wave>=4) m+="  Good wave clearing!";
     $("overMsg").textContent=m; }
   function togglePause(){ if(state==="playing") setState("paused"); else if(state==="paused") setState("playing"); }
@@ -590,8 +596,8 @@
   $("cPause").addEventListener("click",()=>{ if(state==="playing"||state==="paused") togglePause(); });
   $("cRestart").addEventListener("click",()=>{ if(state!=="menu") startGame(); });
   $("cKb").addEventListener("click",()=>{ kbVisible=!kbVisible; kbWrap.hidden=!kbVisible; });
-  $("cSound").addEventListener("click",()=>{ sfxOn=!sfxOn; ensureAudio(); $("sndIc").textContent=sfxOn?"🔊":"🔇"; $("sndTxt").textContent=sfxOn?"SFX on":"SFX off"; if(sfxOn) sfxFire(); });
-  $("cMusic").addEventListener("click",()=>{ musicOn=!musicOn; ensureAudio(); startMusic(); $("musIc").textContent=musicOn?"🎵":"🔕"; $("musTxt").textContent=musicOn?"Music on":"Music off"; });
+  $("cSound").addEventListener("click",()=>{ sfxOn=!sfxOn; ensureAudio(); $("sndIc").textContent=sfxOn?"ðŸ”Š":"ðŸ”‡"; $("sndTxt").textContent=sfxOn?"SFX on":"SFX off"; if(sfxOn) sfxFire(); });
+  $("cMusic").addEventListener("click",()=>{ musicOn=!musicOn; ensureAudio(); startMusic(); $("musIc").textContent=musicOn?"ðŸŽµ":"ðŸ”•"; $("musTxt").textContent=musicOn?"Music on":"Music off"; });
 
   window.addEventListener("keydown",e=>{ if(e.ctrlKey||e.metaKey||e.altKey) return;
     if(e.key==="Escape"){ if(state==="playing"||state==="paused"){ e.preventDefault(); togglePause(); } return; }
@@ -608,3 +614,4 @@
 </script>
 </body>
 </html>
+

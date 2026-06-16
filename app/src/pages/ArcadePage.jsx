@@ -69,7 +69,7 @@ export default function ArcadePage() {
         {GAMES.map(game => (
           <a
             key={game.slug}
-            href={`/web-app/velocity-${game.slug}.html`}
+            href={`/games/velocity-${game.slug}.html`}
             target="_blank"
             rel="noopener noreferrer"
             className={`group card border ${game.border} bg-gradient-to-br ${game.color} p-5 flex flex-col gap-3 hover:scale-[1.02] transition-all duration-200`}
